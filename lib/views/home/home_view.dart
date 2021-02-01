@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:epilepsy/views/home/components/card_view.dart';
 
 class HomeView extends StatelessWidget {
-  final Widget _widget;
-
-  const HomeView(this._widget, {Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,17 +24,20 @@ class HomeView extends StatelessWidget {
               child: ListView(
             children: [
               CardHomeView(
-                  'ความรู้เกี่ยวกับโรค',
-                  'ความรู้ต่างๆ ทั้งการรักษา การดูแล เป็นต้น',
-                  'assets/images/knowledge.jpg',
-                  _widget),
+                'ความรู้เกี่ยวกับโรค',
+                'ความรู้ต่างๆ ทั้งการรักษา การดูแล เป็นต้น',
+                'assets/images/knowledge.jpg',
+              ),
               CardHomeView(
-                  'บันทึกการชัก',
-                  'จดบันทึกการชักรูปแบบต่างๆ ในแต่ละวัน',
-                  'assets/images/calendar.jpg',
-                  _widget),
-              CardHomeView('ลงเวลากินยา', 'บักทึกการกินยาที่สำคัญในแต่ละวัน',
-                  'assets/images/passport.jpg', _widget)
+                'บันทึกการชัก',
+                'จดบันทึกการชักรูปแบบต่างๆ ในแต่ละวัน',
+                'assets/images/calendar.jpg',
+              ),
+              CardHomeView(
+                'ลงเวลากินยา',
+                'บักทึกการกินยาที่สำคัญในแต่ละวัน',
+                'assets/images/passport.jpg',
+              )
             ],
           ))
         ],

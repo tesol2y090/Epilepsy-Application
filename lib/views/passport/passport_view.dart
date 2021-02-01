@@ -7,7 +7,7 @@ class PassportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      padding: EdgeInsets.fromLTRB(0, 98, 0, 48),
+      padding: EdgeInsets.fromLTRB(0, 98, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,

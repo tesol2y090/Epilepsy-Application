@@ -36,20 +36,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static int _selectedIndex = 0;
+  int selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.bold,
   );
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    HomeView(InforView), //Home page
+    HomeView(), //Home page
     InforView(), //Information page
     CalendarView(), //Calendar page
     PassportView(), //Passport page
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions.elementAt(selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -87,9 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'User',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         selectedItemColor: Colors.purple,
-        onTap: _onItemTapped,
+        onTap: onItemTapped,
       ),
     );
   }
