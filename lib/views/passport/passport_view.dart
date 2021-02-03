@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:epilepsy/views/passport/components/add_passport.dart';
 import 'package:epilepsy/views/passport/components/passport_card_view.dart';
 
 class PassportView extends StatelessWidget {
@@ -50,7 +51,8 @@ class PassportView extends StatelessWidget {
                         backgroundColor: Colors.purple,
                         child: Icon(Icons.add),
                         foregroundColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => AddPassport())),
                       )
                     ],
                   ),

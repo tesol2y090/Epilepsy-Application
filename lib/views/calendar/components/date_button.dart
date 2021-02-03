@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DateButton extends StatelessWidget {
   final String _date;
-  final String _numDate;
+  final int _numDate;
   final bool _isSelected;
 
   const DateButton(this._date, this._numDate, this._isSelected, {Key key})

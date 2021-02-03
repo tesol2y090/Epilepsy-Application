@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:epilepsy/views/calendar/components/add_calendar.dart';
 import 'package:epilepsy/views/calendar/components/detail_card.dart';
 
 class DetailListContainer extends StatelessWidget {
@@ -8,6 +9,7 @@ class DetailListContainer extends StatelessWidget {
     return Container(
       child: Expanded(
         child: ListView(
+          padding: EdgeInsets.only(bottom: 36),
           children: [
             DetailCard(),
             DetailCard(),
@@ -16,7 +18,8 @@ class DetailListContainer extends StatelessWidget {
               backgroundColor: Colors.purple,
               child: Icon(Icons.add),
               foregroundColor: Colors.white,
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => AddCalendar())),
             )
           ],
         ),

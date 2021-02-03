@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:epilepsy/views/calendar/components/select_date.dart';
 import 'package:epilepsy/views/calendar/components/detail_list_container.dart';
 
 class CalendarView extends StatelessWidget {
+  static DateTime now = DateTime.now();
+  static String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+  static List<String> dateSplit = formattedDate.split("-");
+  static List<String> monthList = [
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม'
+  ];
+  static String year = dateSplit[0];
+  static String month = monthList[int.parse(dateSplit[1]) - 1];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +41,7 @@ class CalendarView extends StatelessWidget {
                 padding: EdgeInsets.only(left: 24),
                 child: ListTile(
                   title: Text(
-                    'มกราคม 2021',
+                    '$month $year',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   leading: Icon(
