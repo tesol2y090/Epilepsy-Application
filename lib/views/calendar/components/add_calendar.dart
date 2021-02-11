@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ListItem {
-  int value;
-  String name;
-
-  ListItem(this.value, this.name);
-}
+import 'package:epilepsy/models/calendar/EpilepsyTypeItem.dart';
+import 'package:epilepsy/models/calendar/EpilepsyCard.dart';
 
 class AddCalendar extends StatefulWidget {
   @override
@@ -14,15 +11,15 @@ class AddCalendar extends StatefulWidget {
 }
 
 class _AddCalendarState extends State<AddCalendar> {
-  List<ListItem> _dropdownItems = [
-    ListItem(1, "ชักทั้งตัว"),
-    ListItem(2, "ชักเฉพาะส่วน"),
-    ListItem(3, "เหม่อลอย"),
-    ListItem(4, "อื่นๆ")
+  List<EpilepsyTypeItem> _dropdownItems = [
+    EpilepsyTypeItem(1, "ชักทั้งตัว"),
+    EpilepsyTypeItem(2, "ชักเฉพาะส่วน"),
+    EpilepsyTypeItem(3, "เหม่อลอย"),
+    EpilepsyTypeItem(4, "อื่นๆ")
   ];
 
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
+  List<DropdownMenuItem<EpilepsyTypeItem>> _dropdownMenuItems;
+  EpilepsyTypeItem _selectedItem;
 
   void initState() {
     super.initState();
@@ -30,9 +27,10 @@ class _AddCalendarState extends State<AddCalendar> {
     _selectedItem = _dropdownMenuItems[0].value;
   }
 
-  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListItem>> items = List();
-    for (ListItem listItem in listItems) {
+  List<DropdownMenuItem<EpilepsyTypeItem>> buildDropDownMenuItems(
+      List listItems) {
+    List<DropdownMenuItem<EpilepsyTypeItem>> items = List();
+    for (EpilepsyTypeItem listItem in listItems) {
       items.add(
         DropdownMenuItem(
           child: Text(listItem.name),
@@ -41,6 +39,14 @@ class _AddCalendarState extends State<AddCalendar> {
       );
     }
     return items;
+  }
+
+  void addCalendarCard() async {
+    var box = await Hive.openBox('testBox');
+    DateTime now = DateTime.now();
+    var data = EpilepsyCard("test", 'test', 'test', 'test', now);
+    box.put('testkey1', data);
+    print(box.get('testkey1'));
   }
 
   @override
@@ -75,7 +81,7 @@ class _AddCalendarState extends State<AddCalendar> {
                 Row(
                   children: [
                     Expanded(
-                        child: DropdownButton<ListItem>(
+                        child: DropdownButton<EpilepsyTypeItem>(
                             value: _selectedItem,
                             items: _dropdownMenuItems,
                             onChanged: (value) {
@@ -103,7 +109,9 @@ class _AddCalendarState extends State<AddCalendar> {
                     children: [
                       Expanded(
                           child: RaisedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          addCalendarCard();
+                        },
                         textColor: Colors.white,
                         padding: const EdgeInsets.all(12),
                         color: Colors.purple,

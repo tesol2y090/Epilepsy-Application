@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import 'package:epilepsy/views/home/home_view.dart';
 import 'package:epilepsy/views/infor/infor_view.dart';
@@ -7,7 +9,12 @@ import 'package:epilepsy/views/calendar/calendar_view.dart';
 import 'package:epilepsy/views/passport/passport_view.dart';
 import 'package:epilepsy/views/user/user_view.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  var directory = await pathProvider.getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
