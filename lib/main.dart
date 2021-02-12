@@ -10,8 +10,8 @@ import 'package:epilepsy/views/passport/passport_view.dart';
 import 'package:epilepsy/views/user/user_view.dart';
 
 Future<void> main() async {
-  var directory = await pathProvider.getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
+  // var directory = await pathProvider.getApplicationDocumentsDirectory();
+  // Hive.init(directory.path);
 
   runApp(MyApp());
 }
