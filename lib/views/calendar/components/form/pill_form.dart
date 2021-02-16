@@ -4,13 +4,13 @@ import 'package:hive/hive.dart';
 import 'package:epilepsy/models/calendar/EpilepsyCard.dart';
 
 class PillForm extends StatefulWidget {
-  void addCalendarCard() async {
-    var box = await Hive.openBox('testBox');
-    DateTime now = DateTime.now();
-    var data = EpilepsyCard("test", 'test', 'test', 'test', now);
-    box.put('testkey1', data);
-    print(box.get('testkey1'));
-  }
+  // void addCalendarCard() async {
+  //   var box = await Hive.openBox('testBox');
+  //   DateTime now = DateTime.now();
+  //   var data = EpilepsyCard("test", 'test', 'test', 'test', now);
+  //   box.put('testkey1', data);
+  //   print(box.get('testkey1'));
+  // }
 
   @override
   _PillFormState createState() => _PillFormState();

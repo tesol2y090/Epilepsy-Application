@@ -5,19 +5,21 @@ import 'package:epilepsy/models/calendar/EpilepsyTypeItem.dart';
 import 'package:epilepsy/models/calendar/EpilepsyCard.dart';
 
 class ChuckForm extends StatefulWidget {
-  void addCalendarCard() async {
-    var box = await Hive.openBox('testBox');
-    DateTime now = DateTime.now();
-    var data = EpilepsyCard("test", 'test', 'test', 'test', now);
-    box.put('testkey1', data);
-    print(box.get('testkey1'));
-  }
-
   @override
   _ChuckFormState createState() => _ChuckFormState();
 }
 
 class _ChuckFormState extends State<ChuckForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  String _time;
+  String _detail;
+  String _location;
+
+  void addCalendarCard(EpilepsyCard newCard) async {
+    print(newCard.timestamp);
+  }
+
   List<EpilepsyTypeItem> _dropdownItems = [
     EpilepsyTypeItem(1, "ชักทั้งตัว"),
     EpilepsyTypeItem(2, "ชักเฉพาะส่วน"),
@@ -66,58 +68,72 @@ class _ChuckFormState extends State<ChuckForm> {
               )
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(top: 24),
-            child: Column(
-              children: [
-                Row(
+          Form(
+              key: _formKey,
+              child: Container(
+                margin: EdgeInsets.only(top: 24),
+                child: Column(
                   children: [
-                    Expanded(
-                        child: DropdownButton<EpilepsyTypeItem>(
-                            value: _selectedItem,
-                            items: _dropdownMenuItems,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedItem = value;
-                              });
-                            })),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: DropdownButton<EpilepsyTypeItem>(
+                                value: _selectedItem,
+                                items: _dropdownMenuItems,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedItem = value;
+                                  });
+                                })),
+                      ],
+                    ),
+                    TextFormField(
+                      decoration:
+                          InputDecoration(labelText: 'ระยะเวลาในการชัก'),
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) => _time = value,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'โปรดกรอกอาการ'),
+                      keyboardType: TextInputType.text,
+                      onSaved: (value) => _detail = value,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'โปรดกรอกสถานที่'),
+                      keyboardType: TextInputType.text,
+                      onSaved: (value) => _location = value,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 24),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: RaisedButton(
+                            onPressed: () {
+                              _formKey.currentState.save();
+                              final newCard = new EpilepsyCard(
+                                  "chuck",
+                                  _selectedItem.name,
+                                  _time,
+                                  _detail,
+                                  _location,
+                                  DateTime.now());
+                              addCalendarCard(newCard);
+                            },
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(12),
+                            color: Colors.purple,
+                            child: Container(
+                              child: const Text('Save',
+                                  style: TextStyle(fontSize: 20)),
+                            ),
+                          ))
+                        ],
+                      ),
+                    )
                   ],
                 ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'ระยะเวลาในการชัก'),
-                  keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'โปรดกรอกอาการ'),
-                  keyboardType: TextInputType.text,
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'โปรดกรอกสถานที่'),
-                  keyboardType: TextInputType.text,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 24),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: RaisedButton(
-                        // onPressed: () {
-                        //   addCalendarCard();
-                        // },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(12),
-                        color: Colors.purple,
-                        child: Container(
-                          child: const Text('Save',
-                              style: TextStyle(fontSize: 20)),
-                        ),
-                      ))
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
+              ))
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'package:epilepsy/views/home/home_view.dart';
 import 'package:epilepsy/views/infor/infor_view.dart';
@@ -9,14 +9,19 @@ import 'package:epilepsy/views/calendar/calendar_view.dart';
 import 'package:epilepsy/views/passport/passport_view.dart';
 import 'package:epilepsy/views/user/user_view.dart';
 
-Future<void> main() async {
-  // var directory = await pathProvider.getApplicationDocumentsDirectory();
-  // Hive.init(directory.path);
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,8 +33,25 @@ class MyApp extends StatelessWidget {
         ),
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FutureBuilder(
+          future: Hive.openBox('appDb'),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError)
+                return Text(snapshot.error.toString());
+              else
+                return MyHomePage(title: 'Flutter Demo Home Page');
+            } else {
+              return Scaffold();
+            }
+          }),
     );
+  }
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
   }
 }
 
@@ -44,10 +66,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-  );
 
   void onItemTapped(int index) {
     setState(() {
