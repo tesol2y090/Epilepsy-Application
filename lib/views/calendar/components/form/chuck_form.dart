@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import 'package:epilepsy/models/calendar/EpilepsyTypeItem.dart';
-import 'package:epilepsy/models/calendar/EpilepsyCard.dart';
+import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class ChuckForm extends StatefulWidget {
   @override
@@ -16,8 +16,10 @@ class _ChuckFormState extends State<ChuckForm> {
   String _detail;
   String _location;
 
-  void addCalendarCard(EpilepsyCard newCard) async {
-    print(newCard.timestamp);
+  void addCalendarCard(ChuckCard newCard) {
+    final appDbBox = Hive.box('appDb');
+    appDbBox.add(newCard);
+    Navigator.pop(context);
   }
 
   List<EpilepsyTypeItem> _dropdownItems = [
@@ -111,7 +113,7 @@ class _ChuckFormState extends State<ChuckForm> {
                               child: RaisedButton(
                             onPressed: () {
                               _formKey.currentState.save();
-                              final newCard = new EpilepsyCard(
+                              final newCard = new ChuckCard(
                                   "chuck",
                                   _selectedItem.name,
                                   _time,

@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DetailCard extends StatelessWidget {
+  final String _type;
+  final String _epilepsyType;
+  final String _chuckTime;
+  final String _detail;
+  final String _location;
+
+  const DetailCard(this._type, this._epilepsyType, this._chuckTime,
+      this._detail, this._location,
+      {Key key})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +26,7 @@ class DetailCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(8),
                       bottomRight: Radius.circular(8)),
-                  color: Colors.purple,
+                  color: this._type == "chuck" ? Colors.purple : Colors.green,
                 ),
               ),
               Text(
@@ -41,7 +51,7 @@ class DetailCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'อาการชักเฉพาะส่วน',
+                      this._epilepsyType,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     )
@@ -52,7 +62,7 @@ class DetailCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "- เกิดอาการชักแบบเฉพาะแขนและขา ไม่หยุดต่อเนื่องกันเป็นเวลา 50 นาที",
+                        "- $_detail",
                         style: TextStyle(fontSize: 16, color: Colors.grey[400]),
                       ),
                     )
@@ -71,7 +81,7 @@ class DetailCard extends StatelessWidget {
                             color: Colors.grey[400],
                           ),
                           Text(
-                            "รร. เตรียมอุดม",
+                            this._location,
                             style: TextStyle(
                                 color: Colors.grey[400], fontSize: 16),
                           )
@@ -85,7 +95,9 @@ class DetailCard extends StatelessWidget {
                             color: Colors.grey[400],
                           ),
                           Text(
-                            "เกิดการชัก",
+                            this._type == "chuck"
+                                ? "เกิดการชัก"
+                                : "เกิดการแพ้ยา",
                             style: TextStyle(
                                 color: Colors.grey[400], fontSize: 16),
                           )

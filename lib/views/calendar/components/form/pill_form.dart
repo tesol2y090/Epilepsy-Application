@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import 'package:epilepsy/models/calendar/EpilepsyCard.dart';
+import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class PillForm extends StatefulWidget {
-  // void addCalendarCard() async {
-  //   var box = await Hive.openBox('testBox');
-  //   DateTime now = DateTime.now();
-  //   var data = EpilepsyCard("test", 'test', 'test', 'test', now);
-  //   box.put('testkey1', data);
-  //   print(box.get('testkey1'));
-  // }
-
   @override
   _PillFormState createState() => _PillFormState();
 }
 
 class _PillFormState extends State<PillForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  String _time;
+  String _detail;
+  String _location;
+
+  void addCalendarCard(ChuckCard newCard) {
+    final appDbBox = Hive.box('appDb');
+    appDbBox.add(newCard);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,45 +39,54 @@ class _PillFormState extends State<PillForm> {
               )
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(top: 24),
-            child: Column(
-              children: [
-                TextField(
-                  decoration: InputDecoration(labelText: 'ระยะเวลาในการชัก'),
-                  keyboardType: TextInputType.number,
+          Form(
+              key: _formKey,
+              child: Container(
+                margin: EdgeInsets.only(top: 24),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration:
+                          InputDecoration(labelText: 'ระยะเวลาในการชัก'),
+                      keyboardType: TextInputType.number,
+                      onSaved: (value) => _time = value,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'โปรดกรอกอาการ'),
+                      keyboardType: TextInputType.text,
+                      onSaved: (value) => _detail = value,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'โปรดกรอกสถานที่'),
+                      keyboardType: TextInputType.text,
+                      onSaved: (value) => _location = value,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 24),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: RaisedButton(
+                            onPressed: () {
+                              _formKey.currentState.save();
+                              final newCard = new ChuckCard("pill", "แพ้ยา",
+                                  _time, _detail, _location, DateTime.now());
+                              addCalendarCard(newCard);
+                            },
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(12),
+                            color: Colors.purple,
+                            child: Container(
+                              child: const Text('Save',
+                                  style: TextStyle(fontSize: 20)),
+                            ),
+                          ))
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'โปรดกรอกอาการ'),
-                  keyboardType: TextInputType.text,
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'โปรดกรอกสถานที่'),
-                  keyboardType: TextInputType.text,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 24),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: RaisedButton(
-                        // onPressed: () {
-                        //   addCalendarCard();
-                        // },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(12),
-                        color: Colors.purple,
-                        child: Container(
-                          child: const Text('Save',
-                              style: TextStyle(fontSize: 20)),
-                        ),
-                      ))
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
+              ))
         ],
       ),
     );

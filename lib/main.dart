@@ -9,10 +9,13 @@ import 'package:epilepsy/views/calendar/calendar_view.dart';
 import 'package:epilepsy/views/passport/passport_view.dart';
 import 'package:epilepsy/views/user/user_view.dart';
 
+import 'models/calendar/ChuckCard.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
+  Hive.registerAdapter(ChuckCardAdapter());
   runApp(MyApp());
 }
 
