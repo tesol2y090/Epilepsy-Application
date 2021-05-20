@@ -1,87 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
-class UserDetailChuck extends StatelessWidget {
+class UserDetailChuck extends StatefulWidget {
+  @override
+  _UserDetailChuckState createState() => _UserDetailChuckState();
+}
+
+class _UserDetailChuckState extends State<UserDetailChuck> {
+  List<String> _dropdownItems = [
+    "7",
+    "15",
+    "30",
+    "60",
+  ];
+
+  List<DropdownMenuItem<String>> _dropdownMenuItems;
+  String _selectedItem;
+
+  void initState() {
+    super.initState();
+    _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
+    _selectedItem = _dropdownMenuItems[0].value;
+  }
+
+  List<DropdownMenuItem<String>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<String>> items = List();
+    for (String listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0),
-      padding: EdgeInsets.all(42),
-      child: Column(
+      height: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.fromLTRB(0, 0, 24, 24),
+      child: ListView(
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 12),
-            child: Row(
-              children: [
-                Text(
-                  "ประวัติการชักทั้งหมด",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.purple,
-                      fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "รหัส",
-                style: TextStyle(
-                  fontSize: 14,
+          Container(
+              padding: EdgeInsets.only(bottom: 24),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                DropdownButton<String>(
+                    value: _selectedItem,
+                    items: _dropdownMenuItems,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedItem = value;
+                      });
+                    })
+              ])),
+          Container(
+              height: 400,
+              child: Expanded(
+                child: LineChart(
+                  LineChartData(
+                      borderData: FlBorderData(show: false),
+                      lineBarsData: [
+                        LineChartBarData(colors: [
+                          Colors.purple
+                        ], spots: [
+                          FlSpot(0, 1),
+                          FlSpot(1, 3),
+                          FlSpot(2, 10),
+                          FlSpot(3, 7),
+                          FlSpot(4, 12),
+                          FlSpot(5, 13),
+                          FlSpot(6, 17),
+                          FlSpot(7, 15),
+                          FlSpot(8, 20)
+                        ])
+                      ]),
                 ),
-              ),
-              Text(
-                "00000001",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "ชื่อ :",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "กันตภัทร จันทร์เกษม",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "วันเกิด :",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "13 กันยายน 2541",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "อายุ :",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "22",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          )
+              ))
         ],
       ),
     );

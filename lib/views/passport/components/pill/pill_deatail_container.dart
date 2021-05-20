@@ -4,6 +4,17 @@ import 'package:epilepsy/views/passport/components/pill/pill_detail_data.dart';
 import 'package:epilepsy/views/passport/components/pill/pill_detail_stamp.dart';
 
 class PillDetailContainer extends StatefulWidget {
+  final String _name;
+  final String _dose;
+  final String _freq_side_effect;
+  final String _danger_side_effect;
+  final String _allergy;
+  final String _image;
+
+  const PillDetailContainer(this._name, this._dose, this._freq_side_effect,
+      this._danger_side_effect, this._allergy, this._image,
+      {Key key})
+      : super(key: key);
   @override
   _PillDetailContainer createState() => _PillDetailContainer();
 }
@@ -16,11 +27,6 @@ class _PillDetailContainer extends State<PillDetailContainer> {
       selectedIndex = index;
     });
   }
-
-  static List<Widget> _widgetOptions = <Widget>[
-    PillDetailData(),
-    PillDetailStamp()
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +69,16 @@ class _PillDetailContainer extends State<PillDetailContainer> {
               ),
             ],
           ),
-          _widgetOptions.elementAt(selectedIndex)
+          selectedIndex == 0
+              ? PillDetailData(
+                  widget._name,
+                  widget._dose,
+                  widget._freq_side_effect,
+                  widget._danger_side_effect,
+                  widget._allergy,
+                  widget._image)
+              : PillDetailStamp()
+          // _widgetOptions.elementAt(selectedIndex)
         ],
       ),
     );

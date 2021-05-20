@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 
 class PillDetailData extends StatelessWidget {
+  final String _name;
+  final String _dose;
+  final String _freq_side_effect;
+  final String _danger_side_effect;
+  final String _allergy;
+  final String _image;
+
+  const PillDetailData(this._name, this._dose, this._freq_side_effect,
+      this._danger_side_effect, this._allergy, this._image,
+      {Key key})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 0),
       padding: EdgeInsets.all(42),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsets.only(bottom: 12),
@@ -22,63 +34,78 @@ class PillDetailData extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "รหัส",
+                "ชื่อยา",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "$_name",
                 style: TextStyle(
                   fontSize: 14,
                 ),
-              ),
-              Text(
-                "00000001",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "ชื่อ :",
+                "ขนาด :",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "$_dose",
                 style: TextStyle(
                   fontSize: 14,
                 ),
-              ),
-              Text(
-                "กันตภัทร จันทร์เกษม",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "วันเกิด :",
+                "ผลข้างเคียงที่พบบ่อย",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "$_freq_side_effect",
                 style: TextStyle(
                   fontSize: 14,
                 ),
-              ),
-              Text(
-                "13 กันยายน 2541",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "อายุ :",
+                "ผลข้างเคียงที่ต้องระวัง",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "$_danger_side_effect",
                 style: TextStyle(
                   fontSize: 14,
                 ),
+              )
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "การแพ้ยา",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               Text(
-                "22",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                "$_allergy",
+                style: TextStyle(
+                  fontSize: 14,
+                ),
               )
             ],
           )

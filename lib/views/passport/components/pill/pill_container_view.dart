@@ -4,9 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:epilepsy/views/passport/components/pill/pill_deatail_container.dart';
 
 class PillContainerView extends StatefulWidget {
-  final String title;
+  final String _name;
+  final String _dose;
+  final String _freq_side_effect;
+  final String _danger_side_effect;
+  final String _allergy;
+  final String _image;
 
-  const PillContainerView(this.title);
+  const PillContainerView(this._name, this._dose, this._freq_side_effect,
+      this._danger_side_effect, this._allergy, this._image,
+      {Key key})
+      : super(key: key);
+
   @override
   _PillContainerViewState createState() => _PillContainerViewState();
 }
@@ -35,7 +44,7 @@ class _PillContainerViewState extends State<PillContainerView> {
                 child: Column(
                   children: [
                     Text(
-                      "ชื่อยาจ้า",
+                      widget._name,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -43,7 +52,7 @@ class _PillContainerViewState extends State<PillContainerView> {
                       padding: EdgeInsets.only(top: 24),
                       child: ClipOval(
                         child: Image.asset(
-                          'assets/images/profile-001.jpg',
+                          widget._image,
                           width: 96,
                           height: 96,
                           fit: BoxFit.cover,
@@ -62,7 +71,15 @@ class _PillContainerViewState extends State<PillContainerView> {
                   color: Colors.white),
               margin: EdgeInsets.fromLTRB(0, 24, 0, 0),
               child: Column(
-                children: [PillDetailContainer()],
+                children: [
+                  PillDetailContainer(
+                      widget._name,
+                      widget._dose,
+                      widget._freq_side_effect,
+                      widget._danger_side_effect,
+                      widget._allergy,
+                      widget._image)
+                ],
               ),
             ),
           )

@@ -28,6 +28,7 @@ dependencies:
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
   path_provider: ^1.6.5
+  fl_chart: ^0.36.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -68,6 +69,16 @@ flutter:
     - assets/images/back.svg
     - assets/images/info-bg.svg
     - assets/images/info-bg-2.svg
+    - assets/images/drug_1.jpg
+    - assets/images/drug_2.jpg
+    - assets/images/drug_3.jpg
+    - assets/images/drug_4.jpg
+    - assets/images/drug_6.jpg
+    - assets/images/drug_7.png
+    - assets/images/drug_8.jpg
+    - assets/images/drug_9.jpg
+    - assets/images/drug_10.jpg
+    - assets/images/drug_11.jpg
 
   #   - images/a_dot_ham.jpeg
 

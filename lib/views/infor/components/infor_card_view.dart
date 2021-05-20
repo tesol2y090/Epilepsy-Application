@@ -6,15 +6,17 @@ class InforCardView extends StatelessWidget {
   final String _header;
   final String _detail;
   final String _image;
+  final String _data;
 
-  const InforCardView(this._header, this._detail, this._image, {Key key})
+  const InforCardView(this._header, this._detail, this._image, this._data,
+      {Key key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (_) => InforDetailView(_header))),
+            MaterialPageRoute(builder: (_) => InforDetailView(_header, _data))),
         child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InforDetailView extends StatelessWidget {
-  final String title;
+  final String _title;
+  final String _data;
 
-  const InforDetailView(this.title);
+  const InforDetailView(this._title, this._data);
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +47,14 @@ class InforDetailView extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                title,
+                                _title,
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.bold),
                               )
                             ],
                           )),
                       Container(
-                        child: Text(
-                            "    เป็นภาวะทางระบบประสาทที่ทำให้ผู้ป่วยเกิดอาการชัก ซึ่งเป็นผลมาจาการเปลี่ยนแปลงอย่างเฉียบพลันของการส่งคลื่นสัญญาณกระแสไฟฟ้าของเซลล์สมองเป็นโรคที่มีความผิดปกติทางระบประสาทที่พบได้บ่อย องค์การอนามัยโลก กว่าว่า ในประเทศกำลังพัฒนามีอุบัติการณ์การเกิดเท่า 6-10 คนต่อ ประชากร 1,000 คน โรคลมชักเป็นโรคเรื้อรัง และต้องใช้ระยะเวลาในการรักษาอย่างต่อเนื่องเป็นเวลานานหากผู้ป่งยได้รับการดูแลรักษาที่ถูกต้องจะทำให้มีคุณภาพชีวิตที่ดีขึ้น ",
+                        child: Text("$_data",
                             style: TextStyle(fontSize: 16, color: Colors.grey)),
                       )
                     ],

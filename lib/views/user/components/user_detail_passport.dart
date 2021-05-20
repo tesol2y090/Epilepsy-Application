@@ -1,87 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class UserDetailPassport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0),
-      padding: EdgeInsets.all(42),
-      child: Column(
+      height: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.fromLTRB(0, 0, 24, 24),
+      child: ListView(
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 12),
-            child: Row(
-              children: [
-                Text(
-                  "ประวัติการกินยา",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.purple,
-                      fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "รหัส",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "00000001",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "ชื่อ :",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "กันตภัทร จันทร์เกษม",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "วันเกิด :",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "13 กันยายน 2541",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "อายุ :",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                "22",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          )
+          Container(
+              height: 400,
+              child: Expanded(
+                  child: BarChart(BarChartData(
+                      borderData: FlBorderData(
+                          border: Border(
+                        top: BorderSide.none,
+                        right: BorderSide.none,
+                        left: BorderSide(width: 1),
+                        bottom: BorderSide(width: 1),
+                      )),
+                      barGroups: [
+                    BarChartGroupData(x: 1, barRods: [
+                      BarChartRodData(y: 3, width: 15, colors: [Colors.amber]),
+                      BarChartRodData(y: 4.2, width: 15, colors: [Colors.red]),
+                      BarChartRodData(y: 5, width: 15, colors: [Colors.blue]),
+                    ]),
+                    BarChartGroupData(x: 2, barRods: [
+                      BarChartRodData(y: 8, width: 15, colors: [Colors.amber]),
+                      BarChartRodData(y: 6.2, width: 15, colors: [Colors.red]),
+                      BarChartRodData(y: 9, width: 15, colors: [Colors.blue]),
+                    ]),
+                  ]))))
         ],
       ),
     );

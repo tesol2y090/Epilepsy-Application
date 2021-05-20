@@ -10,25 +10,35 @@ class DetailListContainer extends StatelessWidget {
     final chuckCard = Hive.box('appDb');
     return Container(
       child: Expanded(
-          child: ListView.builder(
-              padding: EdgeInsets.only(bottom: 36),
-              itemCount: chuckCard.length,
-              itemBuilder: (context, index) {
-                final card = chuckCard.get(index);
-                return Column(children: [
-                  DetailCard(card.type, card.epilepsyType, card.chuckTime,
-                      card.detail, card.location),
-                  chuckCard.length - 1 == index
-                      ? FloatingActionButton(
-                          backgroundColor: Colors.purple,
-                          child: Icon(Icons.add),
-                          foregroundColor: Colors.white,
-                          onPressed: () => Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => AddCalendar())),
-                        )
-                      : Row()
-                ]);
-              })),
+          child: chuckCard.length != 0
+              ? ListView.builder(
+                  padding: EdgeInsets.only(bottom: 36),
+                  itemCount: chuckCard.length,
+                  itemBuilder: (context, index) {
+                    final card = chuckCard.get(index);
+                    return Column(children: [
+                      DetailCard(card.type, card.epilepsyType, card.chuckTime,
+                          card.detail, card.location),
+                      chuckCard.length - 1 == index
+                          ? FloatingActionButton(
+                              backgroundColor: Colors.purple,
+                              child: Icon(Icons.add),
+                              foregroundColor: Colors.white,
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => AddCalendar())),
+                            )
+                          : Row()
+                    ]);
+                  })
+              : FloatingActionButton(
+                  backgroundColor: Colors.purple,
+                  child: Icon(Icons.add),
+                  foregroundColor: Colors.white,
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => AddCalendar())),
+                )),
     );
   }
 }
