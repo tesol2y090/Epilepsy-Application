@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 import 'package:epilepsy/views/calendar/components/add_calendar.dart';
 import 'package:epilepsy/views/calendar/components/detail_card.dart';
+import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class DetailListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final chuckCard = Hive.box('appDb');
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    final chuckCard = Hive.box('chuck_data');
+    List<dynamic> data = chuckCard.get(formattedDate);
     return Container(
       child: Expanded(
-          child: chuckCard.length != 0
+          child: data != null
               ? ListView.builder(
                   padding: EdgeInsets.only(bottom: 36),
-                  itemCount: chuckCard.length,
+                  itemCount: data.length,
                   itemBuilder: (context, index) {
-                    final card = chuckCard.get(index);
+                    final card = data[index];
                     return Column(children: [
                       DetailCard(card.type, card.epilepsyType, card.chuckTime,
                           card.detail, card.location),
-                      chuckCard.length - 1 == index
+                      data.length - 1 == index
                           ? FloatingActionButton(
                               backgroundColor: Colors.purple,
                               child: Icon(Icons.add),

@@ -27,7 +27,7 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 24),
+      margin: EdgeInsets.only(top: 12),
       child: Column(
         children: [
           Row(

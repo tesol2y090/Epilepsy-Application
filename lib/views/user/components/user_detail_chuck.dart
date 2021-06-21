@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:hive/hive.dart';
 
 class UserDetailChuck extends StatefulWidget {
   @override
@@ -11,16 +12,17 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
     "7",
     "15",
     "30",
-    "60",
   ];
 
   List<DropdownMenuItem<String>> _dropdownMenuItems;
-  String _selectedItem;
+  String _selectedDate;
+  List<FlSpot> showData;
 
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    _selectedItem = _dropdownMenuItems[0].value;
+    _selectedDate = _dropdownMenuItems[0].value;
+    showData = [];
   }
 
   List<DropdownMenuItem<String>> buildDropDownMenuItems(List listItems) {
@@ -38,45 +40,60 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
 
   @override
   Widget build(BuildContext context) {
+    final chuckBox = Hive.box('chuck_data');
+    if (chuckBox.length <= int.parse(_selectedDate)) {
+      List<FlSpot> tempData = [];
+      for (int i = 0; i < chuckBox.length; i++) {
+        // final date = chuckBox.keys;
+        final data = chuckBox.getAt(i);
+        tempData.add(FlSpot(i.toDouble(), data.length.toDouble()));
+      }
+      print(tempData);
+      setState(() {
+        showData = tempData;
+      });
+    } else {
+      List<FlSpot> tempData = [];
+      for (int i = chuckBox.length - 1;
+          i < chuckBox.length - int.parse(_selectedDate) - 1;
+          i--) {
+        // final date = chuckBox.keys;
+        final data = chuckBox.getAt(i);
+        tempData.add(FlSpot(i.toDouble(), data.length.toDouble()));
+      }
+      setState(() {
+        showData = tempData;
+      });
+    }
     return Container(
       height: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.fromLTRB(0, 0, 24, 24),
+      padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: ListView(
         children: [
           Container(
-              padding: EdgeInsets.only(bottom: 24),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                DropdownButton<String>(
-                    value: _selectedItem,
-                    items: _dropdownMenuItems,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedItem = value;
-                      });
-                    })
-              ])),
+            DropdownButton<String>(
+                value: _selectedDate,
+                items: _dropdownMenuItems,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedDate = value;
+                  });
+                })
+          ])),
           Container(
-              height: 400,
+            height: 400,
               child: Expanded(
-                child: LineChart(
-                  LineChartData(
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: [
-                        LineChartBarData(colors: [
-                          Colors.purple
-                        ], spots: [
-                          FlSpot(0, 1),
-                          FlSpot(1, 3),
-                          FlSpot(2, 10),
-                          FlSpot(3, 7),
-                          FlSpot(4, 12),
-                          FlSpot(5, 13),
-                          FlSpot(6, 17),
-                          FlSpot(7, 15),
-                          FlSpot(8, 20)
-                        ])
-                      ]),
-                ),
+            child: showData.length == 0
+                    ? Text("No data")
+                    : LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                          LineChartBarData(
+                                  colors: [Colors.purple], spots: showData)
+                            ]),
+                      ),
               ))
         ],
       ),

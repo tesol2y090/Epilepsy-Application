@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class UserDetailData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userDataBox = Hive.box('user_data');
+    String no = userDataBox.get('no');
+    String name = userDataBox.get('name');
+    String birthDate = userDataBox.get('birth_date');
+    String age = userDataBox.get('age');
+    String gender = userDataBox.get('gender');
     return Container(
       margin: EdgeInsets.only(top: 0),
-      padding: EdgeInsets.all(42),
+      padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
       child: Column(
         children: [
           Padding(
@@ -32,7 +39,7 @@ class UserDetailData extends StatelessWidget {
                 ),
               ),
               Text(
-                "00000001",
+                "$no",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],
@@ -47,7 +54,7 @@ class UserDetailData extends StatelessWidget {
                 ),
               ),
               Text(
-                "กันตภัทร จันทร์เกษม",
+                "$name",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],
@@ -62,7 +69,7 @@ class UserDetailData extends StatelessWidget {
                 ),
               ),
               Text(
-                "13 กันยายน 2541",
+                "$birthDate",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],
@@ -77,7 +84,22 @@ class UserDetailData extends StatelessWidget {
                 ),
               ),
               Text(
-                "22",
+                "$age",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "เพศ :",
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                "$gender",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               )
             ],

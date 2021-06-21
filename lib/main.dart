@@ -11,12 +11,21 @@ import 'package:epilepsy/views/user/user_view.dart';
 
 import 'models/calendar/ChuckCard.dart';
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ChuckCardAdapter());
+  await Hive.openBox('user_data');
+  await Hive.openBox('chuck_data');
+  await Hive.openBox('pill_data');
   runApp(MyApp());
+}
+
+Future loadBox() async {
+  await Hive.openBox('user_data');
+  await Hive.openBox('chuck_data');
+  await Hive.openBox('pill_data');
 }
 
 class MyApp extends StatefulWidget {
@@ -37,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.purple,
       ),
       home: FutureBuilder(
-          future: Hive.openBox('appDb'),
+          future: loadBox(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError)
