@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
-import 'package:epilepsy/views/passport/components/add_passport.dart';
 import 'package:epilepsy/views/passport/components/passport_card_view.dart';
 
 class PassportView extends StatelessWidget {
