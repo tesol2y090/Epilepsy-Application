@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 
 import 'package:epilepsy/views/calendar/components/add_calendar.dart';
 import 'package:epilepsy/views/calendar/components/detail_card.dart';
-import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class DetailListContainer extends StatelessWidget {
   @override
