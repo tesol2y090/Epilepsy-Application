@@ -9,7 +9,7 @@ import 'package:epilepsy/views/calendar/calendar_view.dart';
 import 'package:epilepsy/views/passport/passport_view.dart';
 import 'package:epilepsy/views/user/user_view.dart';
 
-import 'models/calendar/ChuckCard.dart';
+import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
