@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'ChuckCard.g.dart';
+part 'package:epilepsy/models/calendar/ChuckCard.g.dart';
 
 @HiveType(typeId: 0)
 class ChuckCard {

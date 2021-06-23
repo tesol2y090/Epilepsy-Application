@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ChuckCard.dart';
+part of 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
