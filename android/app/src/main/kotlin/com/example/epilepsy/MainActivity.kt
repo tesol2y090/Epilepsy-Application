@@ -1,4 +1,4 @@
-package com.example.epilepsy
+package epilepsy.pmhp
 
 import io.flutter.embedding.android.FlutterActivity
 
