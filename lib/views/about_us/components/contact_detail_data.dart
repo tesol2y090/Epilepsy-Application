@@ -68,6 +68,21 @@ class ContactDetailData extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "อีเมลล์",
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                "pediatricneurologypmk@gmail.com",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
