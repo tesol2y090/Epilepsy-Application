@@ -81,6 +81,8 @@ flutter:
     - assets/images/drug_9.jpg
     - assets/images/drug_10.jpg
     - assets/images/drug_11.jpg
+    - assets/images/about-logo.png
+    - assets/images/line-id.png
 
   #   - images/a_dot_ham.jpeg
 

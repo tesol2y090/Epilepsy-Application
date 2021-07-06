@@ -8,6 +8,7 @@ import 'package:epilepsy/views/infor/infor_view.dart';
 import 'package:epilepsy/views/calendar/calendar_view.dart';
 import 'package:epilepsy/views/passport/passport_view.dart';
 import 'package:epilepsy/views/user/user_view.dart';
+import 'package:epilepsy/views/about_us/about_us_view.dart';
 
 import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
@@ -90,7 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
     InforView(), //Information page
     CalendarView(), //Calendar page
     PassportView(), //Passport page
-    UserView() //User page
+    UserView(), //User page
+    AboutUs() //About us page
   ];
 
   @override
@@ -122,6 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'User',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.phone),
+            label: 'Contact',
           ),
         ],
         currentIndex: selectedIndex,
