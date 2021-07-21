@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DetailCard extends StatelessWidget {
   final String _type;
@@ -6,13 +7,15 @@ class DetailCard extends StatelessWidget {
   final String _chuckTime;
   final String _detail;
   final String _location;
+  final DateTime _dateTime;
 
   const DetailCard(this._type, this._epilepsyType, this._chuckTime,
-      this._detail, this._location,
+      this._detail, this._location, this._dateTime,
       {Key key})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('hh::mm a').format(_dateTime);
     return Container(
       child: Column(
         children: [
@@ -30,13 +33,9 @@ class DetailCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "7.00",
+                '$formattedDate',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Text(
-                ' AM.',
-                style: TextStyle(fontSize: 18),
-              )
             ],
           ),
           Container(

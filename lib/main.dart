@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
-            label: 'Infor',
+            label: 'Info',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),

@@ -100,7 +100,7 @@ class _ChuckFormState extends State<ChuckForm> {
                       ),
                       TextFormField(
                         decoration:
-                            InputDecoration(labelText: 'ระยะเวลาในการชัก'),
+                            InputDecoration(labelText: 'โปรดกรอกชื่อยา'),
                         keyboardType: TextInputType.number,
                         onSaved: (value) => _time = value,
                       ),

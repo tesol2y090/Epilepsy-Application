@@ -71,7 +71,7 @@ class ContactDetailData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "อีเมลล์",
+                "อีเมล",
                 style: TextStyle(
                   fontSize: 14,
                 ),

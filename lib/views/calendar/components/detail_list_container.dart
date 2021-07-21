@@ -22,7 +22,7 @@ class DetailListContainer extends StatelessWidget {
                     final card = data[index];
                     return Column(children: [
                       DetailCard(card.type, card.epilepsyType, card.chuckTime,
-                          card.detail, card.location),
+                          card.detail, card.location, card.timestamp),
                       data.length - 1 == index
                           ? FloatingActionButton(
                               backgroundColor: Colors.purple,
