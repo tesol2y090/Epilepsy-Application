@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    HomeView(), //Home page
+    // HomeView(), //Home page
     InforView(), //Information page
     CalendarView(), //Calendar page
     PassportView(), //Passport page
@@ -105,10 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.home),
+          //   label: 'Home',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
             label: 'Info',
