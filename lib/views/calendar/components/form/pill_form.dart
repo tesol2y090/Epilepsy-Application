@@ -56,7 +56,7 @@ class _PillFormState extends State<PillForm> {
                     children: [
                       TextFormField(
                         decoration:
-                            InputDecoration(labelText: 'ระยะเวลาในการชัก'),
+                            InputDecoration(labelText: 'โปรดกรอกชื่อยา'),
                         keyboardType: TextInputType.number,
                         onSaved: (value) => _time = value,
                       ),

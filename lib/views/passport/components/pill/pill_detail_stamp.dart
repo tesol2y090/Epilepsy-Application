@@ -12,11 +12,11 @@ class PillDetailStamp extends StatefulWidget {
 }
 
 class _PillDetailStampState extends State<PillDetailStamp> {
-  bool beforeBreak = false;
+  // bool beforeBreak = false;
   bool afterBreak = false;
-  bool beforeLunch = false;
+  // bool beforeLunch = false;
   bool afterLunch = false;
-  bool beforeEven = false;
+  // bool beforeEven = false;
   bool afterEven = false;
   bool beforeBed = false;
 
@@ -25,18 +25,15 @@ class _PillDetailStampState extends State<PillDetailStamp> {
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     final pillBox = Hive.box('pill_data');
     List<dynamic> pillDatas = pillBox.get(formattedDate);
-    findPill(String no) => pillDatas.firstWhere((data) => data["no"] == no);
+    findPill(String no) => pillDatas.firstWhere((data) => data.no == no);
     var pill = findPill(widget._no);
 
     if (pill != null) {
       setState(() {
-        this.beforeBreak = pill["time_stamp"]["beforeBreak"];
-        afterBreak = pill["time_stamp"]["afterBreak"];
-        beforeLunch = pill["time_stamp"]["beforeLunch"];
-        afterLunch = pill["time_stamp"]["afterLunch"];
-        beforeEven = pill["time_stamp"]["beforeEven"];
-        afterEven = pill["time_stamp"]["afterEven"];
-        beforeBed = pill["time_stamp"]["beforeBed"];
+        afterBreak = pill.timeStamp.afterBreak;
+        afterLunch = pill.timeStamp.afterLunch;
+        afterEven = pill.timeStamp.afterEven;
+        beforeBed = pill.timeStamp.beforeBed;
       });
     }
     return Container(
@@ -69,7 +66,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
         //       onChanged: (bool value) {
         //         setState(() {
         //           this.beforeBreak = value;
-        //           pillDatas[int.parse(widget._no) - 1]["time_stamp"]
+        //           pillDatas[int.parse(widget._no) - 1].timeStamp
         //               ["beforeBreak"] = value;
         //           pillBox.put(formattedDate, pillDatas);
         //         });
@@ -91,8 +88,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
               onChanged: (bool value) {
                 setState(() {
                   this.afterBreak = value;
-                  pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-                      ["afterBreak"] = value;
+                  pillDatas[int.parse(widget._no) - 1].timeStamp.afterBreak =
+                      value;
                   pillBox.put(formattedDate, pillDatas);
                 });
               },
@@ -113,7 +110,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
         //       onChanged: (bool value) {
         //         setState(() {
         //           this.beforeLunch = value;
-        //           pillDatas[int.parse(widget._no) - 1]["time_stamp"]
+        //           pillDatas[int.parse(widget._no) - 1].timeStamp
         //               ["beforeLunch"] = value;
         //           pillBox.put(formattedDate, pillDatas);
         //         });
@@ -135,8 +132,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
               onChanged: (bool value) {
                 setState(() {
                   this.afterLunch = value;
-                  pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-                      ["afterLunch"] = value;
+                  pillDatas[int.parse(widget._no) - 1].timeStamp.afterLunch =
+                      value;
                   pillBox.put(formattedDate, pillDatas);
                 });
               },
@@ -157,7 +154,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
         //       onChanged: (bool value) {
         //         setState(() {
         //           this.beforeEven = value;
-        //           pillDatas[int.parse(widget._no) - 1]["time_stamp"]
+        //           pillDatas[int.parse(widget._no) - 1].timeStamp
         //               ["beforeEven"] = value;
         //           pillBox.put(formattedDate, pillDatas);
         //         });
@@ -179,8 +176,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
               onChanged: (bool value) {
                 setState(() {
                   this.afterEven = value;
-                  pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-                      ["afterEven"] = value;
+                  pillDatas[int.parse(widget._no) - 1].timeStamp.afterEven =
+                      value;
                   pillBox.put(formattedDate, pillDatas);
                 });
               },
@@ -201,8 +198,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
               onChanged: (bool value) {
                 setState(() {
                   this.beforeBed = value;
-                  pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-                      ["beforeBed"] = value;
+                  pillDatas[int.parse(widget._no) - 1].timeStamp.beforeBed =
+                      value;
                   pillBox.put(formattedDate, pillDatas);
                 });
               },
@@ -231,7 +228,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.beforeBreak = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
   //                     ["beforeBreak"] = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
@@ -253,8 +250,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.afterBreak = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-  //                     ["afterBreak"] = value;
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
+  //                     .afterBreak = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
   //             },
@@ -275,7 +272,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.beforeLunch = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
   //                     ["beforeLunch"] = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
@@ -297,8 +294,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.afterLunch = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-  //                     ["afterLunch"] = value;
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
+  //                     .afterLunch = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
   //             },
@@ -319,7 +316,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.beforeEven = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
   //                     ["beforeEven"] = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
@@ -341,8 +338,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.afterEven = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-  //                     ["afterEven"] = value;
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
+  //                     .afterEven = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
   //             },
@@ -363,8 +360,8 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   //             onChanged: (bool value) {
   //               setState(() {
   //                 this.beforeBed = value;
-  //                 pillDatas[int.parse(widget._no) - 1]["time_stamp"]
-  //                     ["beforeBed"] = value;
+  //                 pillDatas[int.parse(widget._no) - 1].timeStamp
+  //                     .beforeBed = value;
   //                 pillBox.put(formattedDate, pillDatas);
   //               });
   //             },

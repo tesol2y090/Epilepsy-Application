@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'package:epilepsy/models/calendar/ChuckCard.g.dart';
+part 'ChuckCard.g.dart';
 
 @HiveType(typeId: 0)
-class ChuckCard {
+class ChuckCard extends HiveObject {
   @HiveField(0)
   String type;
 

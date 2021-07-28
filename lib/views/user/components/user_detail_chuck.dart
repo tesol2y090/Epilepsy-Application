@@ -48,7 +48,6 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
         final data = chuckBox.getAt(i);
         tempData.add(FlSpot(i.toDouble(), data.length.toDouble()));
       }
-      print(tempData);
       setState(() {
         showData = tempData;
       });
@@ -83,17 +82,23 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
           ])),
           Container(
             height: 400,
-              child: Expanded(
-            child: showData.length == 0
-                    ? Text("No data")
-                    : LineChart(
-                        LineChartData(
-                            borderData: FlBorderData(show: false),
-                            lineBarsData: [
-                          LineChartBarData(
-                                  colors: [Colors.purple], spots: showData)
-                            ]),
-                      ),
+              child: Flex(
+                direction: Axis.vertical,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: showData.length == 0
+                        ? Text("No data")
+                        : LineChart(
+                            LineChartData(
+                                borderData: FlBorderData(show: false),
+                                lineBarsData: [
+                                  LineChartBarData(
+                                      colors: [Colors.purple], spots: showData)
+                                ]),
+                          ),
+                )
+                ],
               ))
         ],
       ),

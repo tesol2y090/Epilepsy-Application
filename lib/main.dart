@@ -11,12 +11,16 @@ import 'package:epilepsy/views/user/user_view.dart';
 import 'package:epilepsy/views/about_us/about_us_view.dart';
 
 import 'package:epilepsy/models/calendar/ChuckCard.dart';
+import 'package:epilepsy/models/passport/TimeStamp.dart';
+import 'package:epilepsy/models/passport/PillCard.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ChuckCardAdapter());
+  Hive.registerAdapter(TimeStampAdapter());
+  Hive.registerAdapter(PillCardAdapter());
   await Hive.openBox('user_data');
   await Hive.openBox('chuck_data');
   await Hive.openBox('pill_data');

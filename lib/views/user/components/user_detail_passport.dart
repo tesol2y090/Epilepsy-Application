@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:hive/hive.dart';
 
+import 'package:epilepsy/models/passport/PillCard.dart';
+import 'package:epilepsy/models/passport/TimeStamp.dart';
+
 class UserDetailPassport extends StatefulWidget {
   @override
   _UserDetailPassportState createState() => _UserDetailPassportState();
@@ -77,12 +80,30 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
       List<BarChartGroupData> tempData = [];
       for (int i = 0; i < pillBox.length; i++) {
         final data = pillBox.getAt(i);
-        findPill(String no) => data.firstWhere((data) => data["name"] == no);
+        dynamic findPill(String _name) {
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]['name'] == _name) {
+              return data[i];
+            }
+          }
+          return data[0];
+        }
+
+        // findPill(String _name) =>
+        //     data.firstWhere((data) => data["name"] == _name);
         var pill = findPill(_selectedPill);
         var count = 0;
-        pill["time_stamp"].forEach((k, v) => {
-              if (v) {count++}
-            });
+        final timeStamp =
+            pill["timeStamp"] != null ? pill["timeStamp"] : pill["time_stamp"];
+        if (timeStamp["afterBreak"]) {
+          count++;
+        } else if (timeStamp["afterLunch"]) {
+          count++;
+        } else if (timeStamp["afterEven"]) {
+          count++;
+        } else if (timeStamp["beforeBed"]) {
+          count++;
+        }
         tempData.add(BarChartGroupData(x: i, barRods: [
           BarChartRodData(
               y: count.toDouble(), width: 15, colors: [Colors.purple]),
@@ -97,12 +118,30 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
           i < pillBox.length - int.parse(_selectedDate) - 1;
           i--) {
         final data = pillBox.getAt(i);
-        findPill(String no) => data.firstWhere((data) => data["name"] == no);
+        dynamic findPill(String _name) {
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]["name"] == _name) {
+              return data[i];
+            }
+          }
+          return data[0];
+        }
+
+        // findPill(String _name) =>
+        //     data.firstWhere((data) => data["name"] == _name);
         var pill = findPill(_selectedPill);
         var count = 0;
-        pill["time_stamp"].forEach((k, v) => {
-              if (v) {count++}
-            });
+        final timeStamp =
+            pill["timeStamp"] != null ? pill["timeStamp"] : pill["time_stamp"];
+        if (timeStamp["afterBreak"]) {
+          count++;
+        } else if (timeStamp["afterLunch"]) {
+          count++;
+        } else if (timeStamp["afterEven"]) {
+          count++;
+        } else if (timeStamp["beforeBed"]) {
+          count++;
+        }
         tempData.add(BarChartGroupData(x: i, barRods: [
           BarChartRodData(
               y: count.toDouble(), width: 15, colors: [Colors.purple]),
@@ -112,6 +151,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         showData = tempData;
       });
     }
+
     return Container(
       height: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(0, 0, 24, 0),
@@ -146,14 +186,14 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
                   child: showData.length == 0
                       ? Text("No data")
                       : BarChart(BarChartData(
-                      borderData: FlBorderData(
-                          border: Border(
-                        top: BorderSide.none,
-                        right: BorderSide.none,
-                        left: BorderSide(width: 1),
-                        bottom: BorderSide(width: 1),
-                      )),
-                      barGroups: showData))))
+                          borderData: FlBorderData(
+                              border: Border(
+                            top: BorderSide.none,
+                            right: BorderSide.none,
+                            left: BorderSide(width: 1),
+                            bottom: BorderSide(width: 1),
+                          )),
+                          barGroups: showData))))
         ],
       ),
     );

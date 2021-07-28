@@ -23,7 +23,7 @@ class InforDetailView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Stack(
             children: [
               SvgPicture.asset(
@@ -33,14 +33,17 @@ class InforDetailView extends StatelessWidget {
             ],
           ),
           Expanded(
+            flex: 1,
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24.0),
                   color: Colors.white),
               padding: EdgeInsets.all(24),
-              child: Container(
-                child: Expanded(
+              child: Flex(direction: Axis.vertical, children: [
+                Expanded(
+                  flex: 1,
                   child: ListView(
+                    scrollDirection: Axis.vertical,
                     children: [
                       Container(
                           margin: EdgeInsets.only(bottom: 28),
@@ -60,6 +63,7 @@ class InforDetailView extends StatelessWidget {
                     ],
                   ),
                 ),
+              ]
               ),
             ),
           )
