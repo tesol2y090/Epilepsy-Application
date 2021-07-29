@@ -83,7 +83,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         dynamic findPill(String _name) {
           for (var i = 0; i < data.length; i++) {
             var tempPill = data[i];
-            if (tempPill["name"] == _name) {
+            if (tempPill.getName() == _name) {
               return data[i];
             }
           }
@@ -94,14 +94,14 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         //     data.firstWhere((data) => data["name"] == _name);
         var pill = findPill(_selectedPill);
         var count = 0;
-        final timeStamp = pill["timeStamp"];
-        if (timeStamp["afterBreak"]) {
+        final timeStamp = pill.timeStamp;
+        if (timeStamp.afterBreak) {
           count++;
-        } else if (timeStamp["afterLunch"]) {
+        } else if (timeStamp.afterLunch) {
           count++;
-        } else if (timeStamp["afterEven"]) {
+        } else if (timeStamp.afterEven) {
           count++;
-        } else if (timeStamp["beforeBed"]) {
+        } else if (timeStamp.beforeBed) {
           count++;
         }
         tempData.add(BarChartGroupData(x: i, barRods: [
@@ -182,18 +182,24 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
               ])),
           Container(
               height: 400,
-              child: Expanded(
-                  child: showData.length == 0
-                      ? Text("No data")
-                      : BarChart(BarChartData(
-                          borderData: FlBorderData(
-                              border: Border(
-                            top: BorderSide.none,
-                            right: BorderSide.none,
-                            left: BorderSide(width: 1),
-                            bottom: BorderSide(width: 1),
-                          )),
-                          barGroups: showData))))
+              child: Flex(
+                direction: Axis.vertical,
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: showData.length == 0
+                          ? Text("No data")
+                          : BarChart(BarChartData(
+                              borderData: FlBorderData(
+                                  border: Border(
+                                top: BorderSide.none,
+                                right: BorderSide.none,
+                                left: BorderSide(width: 1),
+                                bottom: BorderSide(width: 1),
+                              )),
+                            barGroups: showData)))
+                ],
+              ))
         ],
       ),
     );

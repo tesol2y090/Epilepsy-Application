@@ -8,7 +8,7 @@ import 'package:epilepsy/models/passport/PillCard.dart';
 
 
 class PassportView extends StatelessWidget {
-  List initPillDatas = [
+  List<PillCard> initPillDatas = [
     PillCard(
         "1",
         "Carbamazepin / Tegretal",
