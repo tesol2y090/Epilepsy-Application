@@ -29,6 +29,10 @@ class PillCard extends HiveObject {
   @HiveField(7)
   TimeStamp timeStamp;
 
+  String getName() {
+    return this.name;
+  }
+
   PillCard(this.no, this.name, this.dose, this.freqSideEffect,
       this.dangerSideEffect, this.allergy, this.img, this.timeStamp);
 }

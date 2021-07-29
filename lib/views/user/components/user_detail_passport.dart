@@ -82,7 +82,8 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         final data = pillBox.getAt(i);
         dynamic findPill(String _name) {
           for (var i = 0; i < data.length; i++) {
-            if (data[i]['name'] == _name) {
+            var tempPill = data[i];
+            if (tempPill["name"] == _name) {
               return data[i];
             }
           }
@@ -93,8 +94,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         //     data.firstWhere((data) => data["name"] == _name);
         var pill = findPill(_selectedPill);
         var count = 0;
-        final timeStamp =
-            pill["timeStamp"] != null ? pill["timeStamp"] : pill["time_stamp"];
+        final timeStamp = pill["timeStamp"];
         if (timeStamp["afterBreak"]) {
           count++;
         } else if (timeStamp["afterLunch"]) {
