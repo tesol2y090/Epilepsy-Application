@@ -24,7 +24,7 @@ class _ChuckFormState extends State<ChuckForm> {
     if (chuckBox.get(formattedDate) == null) {
       chuckBox.put(formattedDate, []);
     }
-    List<dynamic> data = chuckBox.get(formattedDate);
+    var data = new List<dynamic>.from(chuckBox.get(formattedDate));
     data.add(newCard);
     chuckBox.put(formattedDate, data);
     Navigator.pop(context);
@@ -100,7 +100,7 @@ class _ChuckFormState extends State<ChuckForm> {
                       ),
                       TextFormField(
                         decoration:
-                            InputDecoration(labelText: 'โปรดกรอกชื่อยา'),
+                            InputDecoration(labelText: 'โปรดกรอกเวลาในการชัก'),
                         keyboardType: TextInputType.number,
                         onSaved: (value) => _time = value,
                       ),
@@ -148,7 +148,7 @@ class _ChuckFormState extends State<ChuckForm> {
                 ))
           ],
         ),
-        ]),
+      ]),
     );
   }
 }

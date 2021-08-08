@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 class UserDetailChuck extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
 
   List<DropdownMenuItem<String>> _dropdownMenuItems;
   String _selectedDate;
-  List<FlSpot> showData;
+  List<BarChartGroupData> showData;
 
   void initState() {
     super.initState();
@@ -42,23 +43,33 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
   Widget build(BuildContext context) {
     final chuckBox = Hive.box('chuck_data');
     if (chuckBox.length <= int.parse(_selectedDate)) {
-      List<FlSpot> tempData = [];
+      List<BarChartGroupData> tempData = [];
       for (int i = 0; i < chuckBox.length; i++) {
-        // final date = chuckBox.keys;
+        DateTime now = DateTime.now();
+        DateTime newNow = now.subtract(Duration(days: chuckBox.length - i - 1));
+        String formattedDate = DateFormat('dd').format(newNow);
         final data = chuckBox.getAt(i);
-        tempData.add(FlSpot(i.toDouble(), data.length.toDouble()));
+        tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
+          BarChartRodData(
+              y: data.length.toDouble(), width: 15, colors: [Colors.purple]),
+        ]));
       }
       setState(() {
         showData = tempData;
       });
     } else {
-      List<FlSpot> tempData = [];
+      List<BarChartGroupData> tempData = [];
       for (int i = chuckBox.length - 1;
           i < chuckBox.length - int.parse(_selectedDate) - 1;
           i--) {
-        // final date = chuckBox.keys;
+        DateTime now = DateTime.now();
+        DateTime newNow = now.subtract(Duration(days: chuckBox.length - i - 1));
+        String formattedDate = DateFormat('dd').format(newNow);
         final data = chuckBox.getAt(i);
-        tempData.add(FlSpot(i.toDouble(), data.length.toDouble()));
+        tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
+          BarChartRodData(
+              y: data.length.toDouble(), width: 15, colors: [Colors.purple]),
+        ]));
       }
       setState(() {
         showData = tempData;
@@ -81,23 +92,33 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
                 })
           ])),
           Container(
-            height: 400,
+              height: 400,
               child: Flex(
                 direction: Axis.vertical,
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: showData.length == 0
-                        ? Text("No data")
-                        : LineChart(
-                            LineChartData(
-                                borderData: FlBorderData(show: false),
-                                lineBarsData: [
-                                  LineChartBarData(
-                                      colors: [Colors.purple], spots: showData)
-                                ]),
-                          ),
-                )
+                      flex: 1,
+                      child: showData.length == 0
+                          ? Text("No data")
+                          : BarChart(BarChartData(
+                              alignment: BarChartAlignment.center,
+                              titlesData: FlTitlesData(
+                                show: true,
+                                bottomTitles: SideTitles(
+                                  showTitles: true,
+                                  getTextStyles: (value) => const TextStyle(
+                                      color: Colors.black, fontSize: 10),
+                                  margin: 10,
+                                ),
+                              ),
+                              borderData: FlBorderData(
+                                  border: Border(
+                                top: BorderSide.none,
+                                right: BorderSide.none,
+                                left: BorderSide(width: 1),
+                                bottom: BorderSide(width: 1),
+                              )),
+                              barGroups: showData)))
                 ],
               ))
         ],

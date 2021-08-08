@@ -23,7 +23,7 @@ class _PillFormState extends State<PillForm> {
     if (chuckBox.get(formattedDate) == null) {
       chuckBox.put(formattedDate, []);
     }
-    List<dynamic> data = chuckBox.get(formattedDate);
+    var data = new List<dynamic>.from(chuckBox.get(formattedDate));
     data.add(newCard);
     chuckBox.put(formattedDate, data);
     Navigator.pop(context);

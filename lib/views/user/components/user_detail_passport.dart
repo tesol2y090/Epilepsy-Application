@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 import 'package:epilepsy/models/passport/PillCard.dart';
 import 'package:epilepsy/models/passport/TimeStamp.dart';
@@ -104,7 +105,10 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         } else if (timeStamp.beforeBed) {
           count++;
         }
-        tempData.add(BarChartGroupData(x: i, barRods: [
+        DateTime now = DateTime.now();
+        DateTime newNow = now.subtract(Duration(days: pillBox.length - i - 1));
+        String formattedDate = DateFormat('dd').format(newNow);
+        tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
           BarChartRodData(
               y: count.toDouble(), width: 15, colors: [Colors.purple]),
         ]));
@@ -120,7 +124,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         final data = pillBox.getAt(i);
         dynamic findPill(String _name) {
           for (var i = 0; i < data.length; i++) {
-            if (data[i]["name"] == _name) {
+            if (data[i].name == _name) {
               return data[i];
             }
           }
@@ -131,18 +135,20 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         //     data.firstWhere((data) => data["name"] == _name);
         var pill = findPill(_selectedPill);
         var count = 0;
-        final timeStamp =
-            pill["timeStamp"] != null ? pill["timeStamp"] : pill["time_stamp"];
-        if (timeStamp["afterBreak"]) {
+        final timeStamp = pill.timeStamp;
+        if (timeStamp.afterBreak) {
           count++;
-        } else if (timeStamp["afterLunch"]) {
+        } else if (timeStamp.afterLunch) {
           count++;
-        } else if (timeStamp["afterEven"]) {
+        } else if (timeStamp.afterEven) {
           count++;
-        } else if (timeStamp["beforeBed"]) {
+        } else if (timeStamp.beforeBed) {
           count++;
         }
-        tempData.add(BarChartGroupData(x: i, barRods: [
+        DateTime now = DateTime.now();
+        DateTime newNow = now.subtract(Duration(days: pillBox.length - i - 1));
+        String formattedDate = DateFormat('dd').format(newNow);
+        tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
           BarChartRodData(
               y: count.toDouble(), width: 15, colors: [Colors.purple]),
         ]));
@@ -151,7 +157,6 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         showData = tempData;
       });
     }
-
     return Container(
       height: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(0, 0, 24, 0),
@@ -190,6 +195,15 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
                       child: showData.length == 0
                           ? Text("No data")
                           : BarChart(BarChartData(
+                            alignment: BarChartAlignment.center,
+                              titlesData: FlTitlesData(
+                                show: true,
+                                bottomTitles: SideTitles(
+                                  showTitles: true,
+                                  getTextStyles: (value) => const TextStyle(color: Colors.black, fontSize: 10),
+                                  margin: 10,
+                                ),
+                              ),
                               borderData: FlBorderData(
                                   border: Border(
                                 top: BorderSide.none,
@@ -197,7 +211,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
                                 left: BorderSide(width: 1),
                                 bottom: BorderSide(width: 1),
                               )),
-                            barGroups: showData)))
+                              barGroups: showData)))
                 ],
               ))
         ],
