@@ -92,7 +92,7 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
                 })
           ])),
           Container(
-              height: 400,
+              height: 800,
               child: Flex(
                 direction: Axis.vertical,
                 children: [
