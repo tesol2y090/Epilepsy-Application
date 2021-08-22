@@ -186,7 +186,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
                     })
               ])),
           Container(
-              height: 800,
+              height: 200,
               child: Flex(
                 direction: Axis.vertical,
                 children: [
