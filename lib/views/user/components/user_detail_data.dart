@@ -33,7 +33,7 @@ class UserDetailData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "รหัส",
+                "HN.",
                 style: TextStyle(
                   fontSize: 14,
                 ),

@@ -33,7 +33,7 @@ class DetailCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '$formattedDate',
+                '$_chuckTime',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ],
@@ -50,7 +50,9 @@ class DetailCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      this._epilepsyType,
+                      this._type == "chuck"
+                                ? this._epilepsyType
+                                : "แพ้ยา",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     )
@@ -86,22 +88,6 @@ class DetailCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.info_rounded,
-                            size: 18,
-                            color: Colors.grey[400],
-                          ),
-                          Text(
-                            this._type == "chuck"
-                                ? "เกิดการชัก"
-                                : "เกิดการแพ้ยา",
-                            style: TextStyle(
-                                color: Colors.grey[400], fontSize: 16),
-                          )
-                        ],
-                      )
                     ],
                   ),
                 )

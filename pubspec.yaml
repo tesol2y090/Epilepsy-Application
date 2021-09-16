@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.3+10
+version: 1.0.3+11
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -25,20 +25,23 @@ dependencies:
     sdk: flutter
   google_fonts: ^1.1.1
   flutter_svg: ^0.20.0-nullsafety.3
-  hive: ^1.4.1+1
-  hive_flutter: ^0.3.0+2
-  path_provider: ^1.6.5
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+  path_provider: ^2.0.3
   fl_chart: ^0.36.1
   intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  image_picker: ^0.6.7+22
+  flutter_local_notifications: ^4.0.1+2
+  # flutter_local_notifications: ^8.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  hive_generator: ^0.8.1
+  hive_generator: ^1.1.1
   build_runner: ^1.8.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -72,15 +75,19 @@ flutter:
     - assets/images/info-bg.svg
     - assets/images/info-bg-2.svg
     - assets/images/drug_1.jpg
-    - assets/images/drug_2.jpg
-    - assets/images/drug_3.jpg
-    - assets/images/drug_4.jpg
-    - assets/images/drug_6.jpg
+    - assets/images/drug_2.png
+    - assets/images/drug_3.png
+    - assets/images/drug_4.png
+    - assets/images/drug_5.png
+    - assets/images/drug_6.png
     - assets/images/drug_7.png
-    - assets/images/drug_8.jpg
-    - assets/images/drug_9.jpg
-    - assets/images/drug_10.jpg
-    - assets/images/drug_11.jpg
+    - assets/images/drug_8.png
+    - assets/images/drug_9.png
+    - assets/images/drug_10.png
+    - assets/images/drug_11.png
+    - assets/images/drug_12.png
+    - assets/images/drug_13.png
+    - assets/images/drug_14.png
     - assets/images/about-logo.png
     - assets/images/line-id.png
 

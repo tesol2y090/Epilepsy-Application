@@ -24,7 +24,7 @@ class _AboutUsState extends State<AboutUs> {
                 child: Column(
                   children: [
                     Text(
-                      'About us',
+                      'ช่องทางการติดต่อ',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),

@@ -6,10 +6,14 @@ import 'package:epilepsy/views/calendar/components/add_calendar.dart';
 import 'package:epilepsy/views/calendar/components/detail_card.dart';
 
 class DetailListContainer extends StatelessWidget {
+  final DateTime _date;
+  // final Widget _widget;
+
+  const DetailListContainer(this._date, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(_date);
     final chuckCard = Hive.box('chuck_data');
     List<dynamic> data = chuckCard.get(formattedDate);
     return Container(
@@ -31,7 +35,7 @@ class DetailListContainer extends StatelessWidget {
                               onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => AddCalendar())),
+                                      builder: (_) => AddCalendar(_date))),
                             )
                           : Row()
                     ]);
@@ -41,7 +45,7 @@ class DetailListContainer extends StatelessWidget {
                   child: Icon(Icons.add),
                   foregroundColor: Colors.white,
                   onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => AddCalendar())),
+                      MaterialPageRoute(builder: (_) => AddCalendar(_date))),
                 )),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ContactDetailData extends StatelessWidget {
+class UserDetailNoti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       margin: EdgeInsets.only(top: 0),
       padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
@@ -13,7 +14,7 @@ class ContactDetailData extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "หน่วยประสาทวิทยา กองกุมารเวชกรรม รพ.พระมงกุฏเกล้า",
+                  "ตั้งเวลาเตือนการกินยา",
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.purple,
@@ -26,73 +27,66 @@ class ContactDetailData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "เว็บไซต์",
+                "ตั้งเวลาเตือน 7.30",
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
-              Text(
-                "http://www.pedceppmk.com/",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
+              Checkbox(
+                checkColor: Colors.white,
+                activeColor: Colors.purple,
+                value: false,
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "อีเมล",
+                "ตั้งเวลาเตือน 11.30",
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
-              Text(
-                "pediatricneurologypmk@gmail.com",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
+              Checkbox(
+                checkColor: Colors.white,
+                activeColor: Colors.purple,
+                value: false,
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "เบอร์โทร",
+                "ตั้งเวลาเตือน 17.30",
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
-              Text(
-                "098-523-3838",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
+              Checkbox(
+                checkColor: Colors.white,
+                activeColor: Colors.purple,
+                value: false,
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Line ID",
+                "ตั้งเวลาเตือน 21.30",
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
-              Text(
-                "0985233838",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/line-id.png',
-                width: 168,
-                height: 168,
-                fit: BoxFit.cover,
+              Checkbox(
+                checkColor: Colors.white,
+                activeColor: Colors.purple,
+                value: false,
               ),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 import 'package:epilepsy/views/calendar/components/select_date.dart';
+import 'package:epilepsy/views/calendar/components/date_button.dart';
 
 class PillDetailStamp extends StatefulWidget {
   final String _no;
@@ -19,6 +20,94 @@ class _PillDetailStampState extends State<PillDetailStamp> {
   // bool beforeEven = false;
   bool afterEven = false;
   bool beforeBed = false;
+
+  var _selectedDate;
+  List<GestureDetector> _showDate;
+
+  void initState() {
+    super.initState();
+    _selectedDate = DateTime.now();
+    var _tempShowData = List<GestureDetector>();
+    for (var i = 0; i < 7; i++) {
+      if (i < 3) {
+        var date = _selectedDate.subtract(Duration(days: 3 - i));
+        var formattedDate = DateFormat('dd').format(date);
+        var formattedDateName = DateFormat('EEEE').format(date);
+        _tempShowData.add(GestureDetector(
+          onTap: () => {
+            setState(() => {_showDate = createButton(date)})
+          },
+          child: DateButton(formattedDateName.substring(0, 3),
+              int.parse(formattedDate), false),
+        ));
+      } else if (i == 3) {
+        var date = _selectedDate.subtract(Duration());
+        var formattedDate = DateFormat('dd').format(date);
+        var formattedDateName = DateFormat('EEEE').format(date);
+        _tempShowData.add(GestureDetector(
+          onTap: () => {
+            setState(() => {_showDate = createButton(date)})
+          },
+          child: DateButton(formattedDateName.substring(0, 3),
+              int.parse(formattedDate), true),
+        ));
+      } else {
+        var date = _selectedDate.add(Duration(days: i - 3));
+        var formattedDate = DateFormat('dd').format(date);
+        var formattedDateName = DateFormat('EEEE').format(date);
+        _tempShowData.add(GestureDetector(
+          onTap: () => {
+            setState(() => {_showDate = createButton(date)})
+          },
+          child: DateButton(formattedDateName.substring(0, 3),
+              int.parse(formattedDate), false),
+        ));
+      }
+    }
+    _showDate = _tempShowData;
+  }
+
+  List<GestureDetector> createButton(var newDate) {
+    var _tempShowData = List<GestureDetector>();
+    setState(() => {_selectedDate = newDate});
+    for (var i = 0; i < 7; i++) {
+      if (i < 3) {
+        var date = newDate.subtract(Duration(days: 3 - i));
+        var formattedDate = DateFormat('dd').format(date);
+        var formattedDateName = DateFormat('EEEE').format(date);
+        _tempShowData.add(GestureDetector(
+          onTap: () => {
+            setState(() => {_showDate = createButton(date)})
+          },
+          child: DateButton(formattedDateName.substring(0, 3),
+              int.parse(formattedDate), false),
+        ));
+      } else if (i == 3) {
+        var date = newDate.subtract(Duration());
+        var formattedDate = DateFormat('dd').format(date);
+        var formattedDateName = DateFormat('EEEE').format(date);
+        _tempShowData.add(GestureDetector(
+          onTap: () => {
+            setState(() => {_showDate = createButton(date)})
+          },
+          child: DateButton(formattedDateName.substring(0, 3),
+              int.parse(formattedDate), true),
+        ));
+      } else {
+        var date = newDate.add(Duration(days: i - 3));
+        var formattedDate = DateFormat('dd').format(date);
+        var formattedDateName = DateFormat('EEEE').format(date);
+        _tempShowData.add(GestureDetector(
+          onTap: () => {
+            setState(() => {_showDate = createButton(date)})
+          },
+          child: DateButton(formattedDateName.substring(0, 3),
+              int.parse(formattedDate), false),
+        ));
+      }
+    }
+    return _tempShowData;
+  }
 
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -41,7 +130,7 @@ class _PillDetailStampState extends State<PillDetailStamp> {
       padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
       child: Column(
         children: [
-              SelectDateContainer(),
+              SelectDateContainer(_showDate),
           checkList(pill, pillBox, pillDatas, formattedDate)
         ],
       ),
@@ -96,28 +185,6 @@ class _PillDetailStampState extends State<PillDetailStamp> {
             ),
           ]),
         ),
-        // Container(
-        //   child:
-        //       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        //     Text(
-        //       "ก่อนอาหารกลางวัน",
-        //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        //     ),
-        //     Checkbox(
-        //       checkColor: Colors.white,
-        //       activeColor: Colors.purple,
-        //       value: this.beforeLunch,
-        //       onChanged: (bool value) {
-        //         setState(() {
-        //           this.beforeLunch = value;
-        //           pillDatas[int.parse(widget._no) - 1].timeStamp
-        //               ["beforeLunch"] = value;
-        //           pillBox.put(formattedDate, pillDatas);
-        //         });
-        //       },
-        //     ),
-        //   ]),
-        // ),
         Container(
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -140,28 +207,6 @@ class _PillDetailStampState extends State<PillDetailStamp> {
             ),
           ]),
         ),
-        // Container(
-        //   child:
-        //       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        //     Text(
-        //       "ก่อนอาหารเย็น",
-        //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        //     ),
-        //     Checkbox(
-        //       checkColor: Colors.white,
-        //       activeColor: Colors.purple,
-        //       value: this.beforeEven,
-        //       onChanged: (bool value) {
-        //         setState(() {
-        //           this.beforeEven = value;
-        //           pillDatas[int.parse(widget._no) - 1].timeStamp
-        //               ["beforeEven"] = value;
-        //           pillBox.put(formattedDate, pillDatas);
-        //         });
-        //       },
-        //     ),
-        //   ]),
-        // ),
         Container(
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

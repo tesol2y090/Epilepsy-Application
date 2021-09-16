@@ -5,6 +5,8 @@ import 'package:epilepsy/views/calendar/components/form/chuck_form.dart';
 import 'package:epilepsy/views/calendar/components/form/pill_form.dart';
 
 class AddCalendar extends StatefulWidget {
+  DateTime _selectedDate;
+  AddCalendar(this._selectedDate, {Key key}) : super(key: key);
   @override
   _AddCalendarState createState() => _AddCalendarState();
 }
@@ -21,7 +23,7 @@ class _AddCalendarState extends State<AddCalendar> {
   }
 
   Widget body() {
-    return TabBarView(children: [ChuckForm(), PillForm()]);
+    return TabBarView(children: [ChuckForm(widget._selectedDate), PillForm(widget._selectedDate)]);
   }
 
   AppBar buildAppBar(BuildContext context) {

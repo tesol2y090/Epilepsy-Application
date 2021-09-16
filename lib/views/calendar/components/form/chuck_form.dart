@@ -6,20 +6,22 @@ import 'package:epilepsy/models/calendar/EpilepsyTypeItem.dart';
 import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class ChuckForm extends StatefulWidget {
+  DateTime _selectedDate;
+  ChuckForm(this._selectedDate, {Key key}) : super(key: key);
   @override
   _ChuckFormState createState() => _ChuckFormState();
 }
 
 class _ChuckFormState extends State<ChuckForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _timeController = TextEditingController();
 
   String _time;
   String _detail;
   String _location;
 
   void addCalendarCard(ChuckCard newCard) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(widget._selectedDate);
     final chuckBox = Hive.box('chuck_data');
     if (chuckBox.get(formattedDate) == null) {
       chuckBox.put(formattedDate, []);
@@ -37,13 +39,37 @@ class _ChuckFormState extends State<ChuckForm> {
     EpilepsyTypeItem(4, "อื่นๆ")
   ];
 
+  List<String> _dropdownHours = [for (int i = 1; i < 25; i++) i.toString()];
+  List<String> _dropdownMinutes = [for (int i = 1; i < 60; i++) i.toString()];
+
   List<DropdownMenuItem<EpilepsyTypeItem>> _dropdownMenuItems;
+  List<DropdownMenuItem<String>> _dropdownHourItems;
+  List<DropdownMenuItem<String>> _dropdownMinuteItems;
   EpilepsyTypeItem _selectedItem;
+  String _selectedHour;
+  String _selectedMinute;
 
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
+    _dropdownHourItems = buildDropdownMenuTime(_dropdownHours);
+    _dropdownMinuteItems = buildDropdownMenuTime(_dropdownMinutes);
     _selectedItem = _dropdownMenuItems[0].value;
+    _selectedHour = _dropdownHourItems[0].value;
+    _selectedMinute = _dropdownMinuteItems[0].value;
+  }
+
+  List<DropdownMenuItem<String>> buildDropdownMenuTime(List listItems) {
+    List<DropdownMenuItem<String>> items = List();
+    for (String listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
   }
 
   List<DropdownMenuItem<EpilepsyTypeItem>> buildDropDownMenuItems(
@@ -98,11 +124,38 @@ class _ChuckFormState extends State<ChuckForm> {
                                   })),
                         ],
                       ),
-                      TextFormField(
-                        decoration:
-                            InputDecoration(labelText: 'โปรดกรอกเวลาในการชัก'),
-                        keyboardType: TextInputType.number,
-                        onSaved: (value) => _time = value,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "โปรดกรอกเวลา",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: DropdownButton<String>(
+                                    value: _selectedHour,
+                                    items: _dropdownHourItems,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedHour = value;
+                                      });
+                                    }),
+                          ),
+                                  DropdownButton<String>(
+                                  value: _selectedMinute,
+                                  items: _dropdownMinuteItems,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedMinute = value;
+                                    });
+                                  })
+                        ],
                       ),
                       TextFormField(
                         decoration: InputDecoration(labelText: 'โปรดกรอกอาการ'),
@@ -126,7 +179,7 @@ class _ChuckFormState extends State<ChuckForm> {
                                 final newCard = new ChuckCard(
                                     "chuck",
                                     _selectedItem.name,
-                                    _time,
+                                    "$_selectedHour:$_selectedMinute",
                                     _detail,
                                     _location,
                                     DateTime.now());

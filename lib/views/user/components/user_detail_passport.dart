@@ -20,17 +20,19 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
 
   List<String> _dropdownPillItems = [
     "Carbamazepin / Tegretal",
-    "Gabapentin / Berliontin",
-    "Levetiracetam / Keppra",
-    "Oxcarbazepine / Trileptal",
+    "Clonazepam / Rivotril®",
+    "Lamotrigine / Lamictal®",
+    "Levetiracetam /  Keppra®",
+    "Oxcarbazepine / Trileptal®",
     "Phenobarbital",
-    "Phenytoin / Dilantin",
-    "Perampanel / Fycompa",
-    "Pregabalin / Lyrica",
-    "Sodium valproate / Depakin",
-    "Topiramate /Topamax",
-    "Vigabatrin / Sabril",
-    "Lacosamide",
+    "Phenytoin / Dilantin®",
+    "Sodium valproate/ Depakin®",
+    "Topiramate / Topamax®",
+    "Vigabatrin / Sabril®",
+    "Perampanel / Fycompa®",
+    "Lacosamide / Vimpat®",
+    "Pregabalin / Lyrica®",
+    "Gabapentin / Neurontin® / Berlontin®",
   ];
 
   List<DropdownMenuItem<String>> _dropdownMenuDateItems;

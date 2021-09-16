@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:epilepsy/views/user/components/user_detail_data.dart';
 import 'package:epilepsy/views/user/components/user_detail_chuck.dart';
 import 'package:epilepsy/views/user/components/user_detail_passport.dart';
+import 'package:epilepsy/views/user/components/user_detail_noti.dart';
 
 class UserDetailContainer extends StatefulWidget {
   @override
@@ -21,7 +22,8 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
   static List<Widget> _widgetOptions = <Widget>[
     UserDetailData(),
     UserDetailChuck(),
-    UserDetailPassport()
+    // UserDetailPassport(),
+    UserDetailNoti()
   ];
 
   @override
@@ -63,6 +65,21 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
                   ),
                 ),
               ),
+              // GestureDetector(
+              //   onTap: () => {onItemTapped(2)},
+              //   child: Container(
+              //     padding: EdgeInsets.all(12),
+              //     margin: EdgeInsets.only(right: 16),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(10.0),
+              //       color: selectedIndex == 2 ? Colors.grey[100] : null,
+              //     ),
+              //     child: Text(
+              //       "ไดอารี่การกินยา",
+              //       style: TextStyle(fontSize: 14, color: Colors.purple),
+              //     ),
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () => {onItemTapped(2)},
                 child: Container(
@@ -70,10 +87,10 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
                   margin: EdgeInsets.only(right: 16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    color: selectedIndex == 2 ? Colors.grey[100] : null,
+                    color: selectedIndex == 3 ? Colors.grey[100] : null,
                   ),
                   child: Text(
-                    "ไดอารี่การกินยา",
+                    "ตั้งเวลากินยา",
                     style: TextStyle(fontSize: 14, color: Colors.purple),
                   ),
                 ),

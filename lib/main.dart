@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'package:epilepsy/views/home/home_view.dart';
@@ -13,6 +14,9 @@ import 'package:epilepsy/views/about_us/about_us_view.dart';
 import 'package:epilepsy/models/calendar/ChuckCard.dart';
 import 'package:epilepsy/models/passport/TimeStamp.dart';
 import 'package:epilepsy/models/passport/PillCard.dart';
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +43,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String message;
+  String channelId = "1000";
+  String channelName = "FLUTTER_NOTIFICATION_CHANNEL";
+  String channelDescription = "FLUTTER_NOTIFICATION_CHANNEL_DETAIL";
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -92,10 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static List<Widget> _widgetOptions = <Widget>[
     // HomeView(), //Home page
+    UserView(), //User page
     InforView(), //Information page
     CalendarView(), //Calendar page
     PassportView(), //Passport page
-    UserView(), //User page
     AboutUs() //About us page
   ];
 
@@ -114,24 +122,24 @@ class _MyHomePageState extends State<MyHomePage> {
           //   label: 'Home',
           // ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'ผู้ใช้',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.info),
-            label: 'Info',
+            label: 'ข้อมูล',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
+            label: 'ปฏิทิน',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Passport',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'User',
+            label: 'ยา',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.phone),
-            label: 'Contact',
+            label: 'ช่องทางติดต่อ',
           ),
         ],
         currentIndex: selectedIndex,

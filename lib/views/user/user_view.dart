@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:epilepsy/views/user/components/user_deatail_container.dart';
 
@@ -11,11 +14,29 @@ class UserView extends StatefulWidget {
 class _UserViewState extends State<UserView> {
   final _formKey = GlobalKey<FormState>();
 
+  File _image;
+  bool _isEdit = false;
+
   String _name;
   String _no;
   String _birthDate;
   String _age;
   String _gender;
+
+  Future _getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
+    print(_image);
+  }
+
+  void setIsEdit() {
+    setState(() {
+      _isEdit = !_isEdit;
+    });
+  }
 
   void addCalendarCard(no, name, birthDate, age, gender) {
     final userBox = Hive.box('user_data');
@@ -24,6 +45,7 @@ class _UserViewState extends State<UserView> {
     userBox.put("birth_date", birthDate);
     userBox.put("age", age);
     userBox.put("gender", gender);
+    userBox.put("img", _image.path);
     setState(() {
       _name = name;
     });
@@ -33,10 +55,11 @@ class _UserViewState extends State<UserView> {
   Widget build(BuildContext context) {
     final userDataBox = Hive.box('user_data');
     String name = userDataBox.get('name');
+    String imgPath = userDataBox.get('img');
     setState(() {
       _name = name;
     });
-    return _name == null
+    return _name == null || _isEdit
         ? Container(
             alignment: Alignment.topLeft,
             padding: EdgeInsets.all(24),
@@ -61,8 +84,35 @@ class _UserViewState extends State<UserView> {
                         margin: EdgeInsets.only(top: 24),
                         child: Column(
                           children: [
+                            Center(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 24),
+                                    child: GestureDetector(
+                                      onTap: _getImage,
+                                      child: ClipOval(
+                                        child: _image != null
+                                            ? Image.file(
+                                                File(_image.path),
+                                                width: 96,
+                                                height: 96,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.asset(
+                                                'assets/images/profile-001.png',
+                                                width: 96,
+                                                height: 96,
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                             TextFormField(
-                              decoration: InputDecoration(labelText: 'รหัส'),
+                              decoration: InputDecoration(labelText: 'HN'),
                               keyboardType: TextInputType.text,
                               onSaved: (value) => _no = value,
                             ),
@@ -84,7 +134,7 @@ class _UserViewState extends State<UserView> {
                             ),
                             TextFormField(
                               decoration: InputDecoration(labelText: 'เพศ'),
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               onSaved: (value) => _gender = value,
                             ),
                             Container(
@@ -97,6 +147,9 @@ class _UserViewState extends State<UserView> {
                                       _formKey.currentState.save();
                                       addCalendarCard(_no, _name, _birthDate,
                                           _age, _gender);
+                                          setState(() {
+                                            _isEdit = false;
+                                          });
                                     },
                                     textColor: Colors.white,
                                     padding: const EdgeInsets.all(12),
@@ -126,6 +179,22 @@ class _UserViewState extends State<UserView> {
               children: <Widget>[
                 Stack(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          child: GestureDetector(
+                            onTap: setIsEdit,
+                            child: Text(
+                              "แก้ไข",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Center(
                       child: Column(
                         children: [
@@ -137,12 +206,19 @@ class _UserViewState extends State<UserView> {
                           Padding(
                             padding: EdgeInsets.only(top: 24),
                             child: ClipOval(
-                              child: Image.asset(
-                                'assets/images/profile-001.png',
-                                width: 96,
-                                height: 96,
-                                fit: BoxFit.cover,
-                              ),
+                              child: imgPath != null
+                                  ? Image.file(
+                                      File(imgPath),
+                                      width: 96,
+                                      height: 96,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/profile-001.png',
+                                      width: 96,
+                                      height: 96,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           )
                         ],
