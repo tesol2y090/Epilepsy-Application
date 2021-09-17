@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'package:epilepsy/views/home/home_view.dart';
@@ -16,12 +15,8 @@ import 'package:epilepsy/models/passport/TimeStamp.dart';
 import 'package:epilepsy/models/passport/PillCard.dart';
 import 'package:epilepsy/models/noti/notification_service.dart';
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService().init();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ChuckCardAdapter());
@@ -30,6 +25,7 @@ Future main() async {
   await Hive.openBox('user_data');
   await Hive.openBox('chuck_data');
   await Hive.openBox('pill_data');
+  await NotificationService().init();
   runApp(MyApp());
 }
 

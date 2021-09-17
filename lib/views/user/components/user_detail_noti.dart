@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:epilepsy/models/noti/notification_service.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class UserDetailNoti extends StatefulWidget {
   const UserDetailNoti({Key key}) : super(key: key);
@@ -60,6 +62,11 @@ class _UserDetailNotiState extends State<UserDetailNoti> {
                 activeColor: Colors.purple,
                 value: _afterBreakNoti,
                 onChanged: (bool value) {
+                  if(value) {
+                    NotificationService().showNotification("afterBreak");
+                  } else {
+                    NotificationService().cancelNoti("afterBreak");
+                  }
                   setState(() {
                     _afterBreakNoti = value;
                     userDataBox.put("afterBreakNoti", _afterBreakNoti);
@@ -82,6 +89,11 @@ class _UserDetailNotiState extends State<UserDetailNoti> {
                 activeColor: Colors.purple,
                 value: _afterLunchNoti,
                 onChanged: (bool value) {
+                  if(value) {
+                    NotificationService().showNotification("afterLunch");
+                  } else {
+                    NotificationService().cancelNoti("afterLunch");
+                  }
                   setState(() {
                     _afterLunchNoti = value;
                     userDataBox.put("afterLunchNoti", _afterLunchNoti);
@@ -104,6 +116,11 @@ class _UserDetailNotiState extends State<UserDetailNoti> {
                 activeColor: Colors.purple,
                 value: _afterEvenNoti,
                 onChanged: (bool value) {
+                  if(value) {
+                    NotificationService().showNotification("afterEven");
+                  } else {
+                    NotificationService().cancelNoti("afterEven");
+                  }
                   setState(() {
                     _afterEvenNoti = value;
                     userDataBox.put("afterEvenNoti", _afterEvenNoti);
@@ -126,6 +143,11 @@ class _UserDetailNotiState extends State<UserDetailNoti> {
                 activeColor: Colors.purple,
                 value: _beforeBedNoti,
                 onChanged: (bool value) {
+                  if(value) {
+                    NotificationService().showNotification("beforeBed");
+                  } else {
+                    NotificationService().cancelNoti("beforeBed");
+                  }
                   setState(() {
                     _beforeBedNoti = value;
                     userDataBox.put("beforeBedNoti", _beforeBedNoti);

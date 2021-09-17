@@ -7,7 +7,8 @@ import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class ChuckForm extends StatefulWidget {
   DateTime _selectedDate;
-  ChuckForm(this._selectedDate, {Key key}) : super(key: key);
+  final _increseTick;
+  ChuckForm(this._selectedDate, this._increseTick, {Key key}) : super(key: key);
   @override
   _ChuckFormState createState() => _ChuckFormState();
 }
@@ -30,6 +31,7 @@ class _ChuckFormState extends State<ChuckForm> {
     var data = new List<dynamic>.from(chuckBox.get(formattedDate));
     data.add(newCard);
     chuckBox.put(formattedDate, data);
+    widget._increseTick();
     Navigator.pop(context);
   }
 

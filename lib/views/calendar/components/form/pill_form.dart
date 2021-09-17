@@ -6,7 +6,8 @@ import 'package:epilepsy/models/calendar/ChuckCard.dart';
 
 class PillForm extends StatefulWidget {
   DateTime _selectedDate;
-  PillForm(this._selectedDate, {Key key}) : super(key: key);
+  final _increseTick;
+  PillForm(this._selectedDate, this._increseTick, {Key key}) : super(key: key);
   @override
   _PillFormState createState() => _PillFormState();
 }
@@ -18,7 +19,8 @@ class _PillFormState extends State<PillForm> {
   String _location;
 
   void addCalendarCard(ChuckCard newCard) {
-    String formattedDate = DateFormat('yyyy-MM-dd').format(widget._selectedDate);
+    String formattedDate =
+        DateFormat('yyyy-MM-dd').format(widget._selectedDate);
     final chuckBox = Hive.box('chuck_data');
     if (chuckBox.get(formattedDate) == null) {
       chuckBox.put(formattedDate, []);
@@ -26,6 +28,7 @@ class _PillFormState extends State<PillForm> {
     var data = new List<dynamic>.from(chuckBox.get(formattedDate));
     data.add(newCard);
     chuckBox.put(formattedDate, data);
+    widget._increseTick();
     Navigator.pop(context);
   }
 
@@ -84,8 +87,7 @@ class _PillFormState extends State<PillForm> {
     return items;
   }
 
-  List<DropdownMenuItem<String>> buildDropDownMenuItems(
-      List listItems) {
+  List<DropdownMenuItem<String>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<String>> items = List();
     for (String listItem in listItems) {
       items.add(
@@ -151,22 +153,22 @@ class _PillFormState extends State<PillForm> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: DropdownButton<String>(
-                                    value: _selectedHour,
-                                    items: _dropdownHourItems,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _selectedHour = value;
-                                      });
-                                    }),
+                                value: _selectedHour,
+                                items: _dropdownHourItems,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedHour = value;
+                                  });
+                                }),
                           ),
-                                  DropdownButton<String>(
-                                  value: _selectedMinute,
-                                  items: _dropdownMinuteItems,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedMinute = value;
-                                    });
-                                  })
+                          DropdownButton<String>(
+                              value: _selectedMinute,
+                              items: _dropdownMinuteItems,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedMinute = value;
+                                });
+                              })
                         ],
                       ),
                       TextFormField(
@@ -182,8 +184,13 @@ class _PillFormState extends State<PillForm> {
                                 child: RaisedButton(
                               onPressed: () {
                                 _formKey.currentState.save();
-                                final newCard = new ChuckCard("pill", "แพ้ยา",
-                                    "$_selectedHour:$_selectedMinute", _detail, _selectedItem, DateTime.now());
+                                final newCard = new ChuckCard(
+                                    "pill",
+                                    "แพ้ยา",
+                                    "$_selectedHour:$_selectedMinute",
+                                    _detail,
+                                    _selectedItem,
+                                    DateTime.now());
                                 addCalendarCard(newCard);
                               },
                               textColor: Colors.white,
@@ -202,7 +209,7 @@ class _PillFormState extends State<PillForm> {
                 ))
           ],
         ),
-        ]),
+      ]),
     );
   }
 }
