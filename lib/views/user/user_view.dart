@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:epilepsy/views/user/components/user_deatail_container.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UserView extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class UserView extends StatefulWidget {
 class _UserViewState extends State<UserView> {
   final _formKey = GlobalKey<FormState>();
 
-  File _image;
+  String _image;
   bool _isEdit = false;
 
   String _name;
@@ -22,15 +23,6 @@ class _UserViewState extends State<UserView> {
   String _birthDate;
   String _age;
   String _gender;
-
-  Future _getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = image;
-    });
-    print(_image);
-  }
 
   void setIsEdit() {
     setState(() {
@@ -45,7 +37,6 @@ class _UserViewState extends State<UserView> {
     userBox.put("birth_date", birthDate);
     userBox.put("age", age);
     userBox.put("gender", gender);
-    userBox.put("img", _image.path);
     setState(() {
       _name = name;
     });
@@ -54,12 +45,17 @@ class _UserViewState extends State<UserView> {
   @override
   Widget build(BuildContext context) {
     final userDataBox = Hive.box('user_data');
+    String no = userDataBox.get('no');
     String name = userDataBox.get('name');
+    String birthDate = userDataBox.get('birth_date');
+    String age = userDataBox.get('age');
+    String gender = userDataBox.get('gender');
     String imgPath = userDataBox.get('img');
     setState(() {
       _name = name;
+      _image = imgPath;
     });
-    return _name == null || _isEdit
+    return name == null || _isEdit
         ? Container(
             alignment: Alignment.topLeft,
             padding: EdgeInsets.all(24),
@@ -90,11 +86,31 @@ class _UserViewState extends State<UserView> {
                                   Padding(
                                     padding: EdgeInsets.only(top: 24),
                                     child: GestureDetector(
-                                      onTap: _getImage,
+                                      onTap: () async {
+                                        final status =
+                                            await Permission.photos.request();
+                                        if (status ==
+                                            PermissionStatus.granted) {
+                                          var image =
+                                              await ImagePicker.pickImage(
+                                                  source: ImageSource.gallery);
+                                          print(image);
+                                          setState(() {
+                                            _image = image.path;
+                                          });
+                                          userDataBox.put("img", _image);
+                                        } else if (status ==
+                                            PermissionStatus.denied) {
+                                        } else if (status ==
+                                            PermissionStatus
+                                                .permanentlyDenied) {
+                                          await openAppSettings();
+                                        }
+                                      },
                                       child: ClipOval(
                                         child: _image != null
                                             ? Image.file(
-                                                File(_image.path),
+                                                File(_image),
                                                 width: 96,
                                                 height: 96,
                                                 fit: BoxFit.cover,
@@ -112,27 +128,37 @@ class _UserViewState extends State<UserView> {
                               ),
                             ),
                             TextFormField(
+                              key: Key(no.toString() + "no"),
+                              initialValue: no,
                               decoration: InputDecoration(labelText: 'HN'),
                               keyboardType: TextInputType.text,
                               onSaved: (value) => _no = value,
                             ),
                             TextFormField(
+                              key: Key(name.toString() + "name"),
+                              initialValue: name,
                               decoration:
                                   InputDecoration(labelText: 'ชื่อ - นามสกุล'),
                               keyboardType: TextInputType.text,
                               onSaved: (value) => _name = value,
                             ),
                             TextFormField(
+                              key: Key(birthDate.toString() + "birthDate"),
+                              initialValue: birthDate,
                               decoration: InputDecoration(labelText: 'วันเกิด'),
                               keyboardType: TextInputType.text,
                               onSaved: (value) => _birthDate = value,
                             ),
                             TextFormField(
+                              key: Key(age.toString() + "age"),
+                              initialValue: age,
                               decoration: InputDecoration(labelText: 'อายุ'),
                               keyboardType: TextInputType.number,
                               onSaved: (value) => _age = value,
                             ),
                             TextFormField(
+                              key: Key(gender.toString() + "gender"),
+                              initialValue: gender,
                               decoration: InputDecoration(labelText: 'เพศ'),
                               keyboardType: TextInputType.text,
                               onSaved: (value) => _gender = value,
@@ -147,9 +173,9 @@ class _UserViewState extends State<UserView> {
                                       _formKey.currentState.save();
                                       addCalendarCard(_no, _name, _birthDate,
                                           _age, _gender);
-                                          setState(() {
-                                            _isEdit = false;
-                                          });
+                                      setState(() {
+                                        _isEdit = false;
+                                      });
                                     },
                                     textColor: Colors.white,
                                     padding: const EdgeInsets.all(12),

@@ -11,8 +11,8 @@ class UserDetailChuck extends StatefulWidget {
 class _UserDetailChuckState extends State<UserDetailChuck> {
   List<String> _dropdownItems = [
     "7",
-    "15",
-    "30",
+    // "15",
+    // "30",
   ];
 
   List<DropdownMenuItem<String>> _dropdownMenuItems;
@@ -44,11 +44,15 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
     final chuckBox = Hive.box('chuck_data');
     if (chuckBox.length <= int.parse(_selectedDate)) {
       List<BarChartGroupData> tempData = [];
-      for (int i = 0; i < chuckBox.length; i++) {
+      for (int i = chuckBox.length - 1; i >= 0; i--) {
         DateTime now = DateTime.now();
         DateTime newNow = now.subtract(Duration(days: chuckBox.length - i - 1));
         String formattedDate = DateFormat('dd').format(newNow);
-        final data = chuckBox.getAt(i);
+        String dateKey = DateFormat('yyyy-MM-dd').format(newNow);
+        if (chuckBox.get(dateKey) == null) {
+          chuckBox.put(dateKey, []);
+        }
+        final data = chuckBox.get(dateKey);
         tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
           BarChartRodData(
               y: data.length.toDouble(), width: 15, colors: [Colors.purple]),
@@ -60,12 +64,16 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
     } else {
       List<BarChartGroupData> tempData = [];
       for (int i = chuckBox.length - 1;
-          i < chuckBox.length - int.parse(_selectedDate) - 1;
+          i > chuckBox.length - (int.parse(_selectedDate) - 1);
           i--) {
         DateTime now = DateTime.now();
         DateTime newNow = now.subtract(Duration(days: chuckBox.length - i - 1));
         String formattedDate = DateFormat('dd').format(newNow);
-        final data = chuckBox.getAt(i);
+        String dateKey = DateFormat('yyyy-MM-dd').format(newNow);
+        if (chuckBox.get(dateKey) == null) {
+          chuckBox.put(dateKey, []);
+        }
+        final data = chuckBox.get(dateKey);
         tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
           BarChartRodData(
               y: data.length.toDouble(), width: 15, colors: [Colors.purple]),

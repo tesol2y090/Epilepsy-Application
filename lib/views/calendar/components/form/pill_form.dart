@@ -45,8 +45,14 @@ class _PillFormState extends State<PillForm> {
     "Pregabalin / Lyrica®",
     "Gabapentin / Neurontin® / Berlontin®",
   ];
-  List<String> _dropdownHours = [for (int i = 1; i < 25; i++) i.toString()];
-  List<String> _dropdownMinutes = [for (int i = 1; i < 60; i++) i.toString()];
+  List<String> _dropdownHours = [
+    for (int i = 1; i < 25; i++)
+      i.toString().length < 2 ? "0" + i.toString() : i.toString()
+  ];
+  List<String> _dropdownMinutes = [
+    for (int i = 1; i < 60; i++)
+      i.toString().length < 2 ? "0" + i.toString() : i.toString()
+  ];
 
   List<DropdownMenuItem<String>> _dropdownMenuItems;
   List<DropdownMenuItem<String>> _dropdownHourItems;

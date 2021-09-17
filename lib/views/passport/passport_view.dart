@@ -17,7 +17,7 @@ class PassportView extends StatelessWidget {
         "Hyponatremia (SIADH), Aplastic anemia, ตับอักเสบ เม็ดเลือดขาวต่ำ",
         "skin rash, Steven Johnson syndrome*",
         "assets/images/drug_1.jpg",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "2",
         "Clonazepam / Rivotril®",
@@ -26,7 +26,7 @@ class PassportView extends StatelessWidget {
         "กดการหายใจ",
         "-",
         "assets/images/drug_2.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "3",
         "Lamotrigine / Lamictal®",
@@ -35,7 +35,7 @@ class PassportView extends StatelessWidget {
         "ผื่น Stevens-Johnson syndrome",
         "-",
         "assets/images/drug_3.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "4",
         "Levetiracetam /  Keppra®",
@@ -44,7 +44,7 @@ class PassportView extends StatelessWidget {
         "อารมณ์หงุดหงิด ก้าวร้าว",
         "-",
         "assets/images/drug_4.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "5",
         "Oxcarbazepine / Trileptal®",
@@ -53,7 +53,7 @@ class PassportView extends StatelessWidget {
         "ภาวะโซเดียมต่ำ",
         "-",
         "assets/images/drug_5.png", //no img
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "6",
         "Phenobarbital",
@@ -62,7 +62,7 @@ class PassportView extends StatelessWidget {
         "ผื่น Stevens-Johnson syndrome",
         "-",
         "assets/images/drug_6.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "7",
         "Phenytoin / Dilantin®",
@@ -71,9 +71,9 @@ class PassportView extends StatelessWidget {
         "ผื่น Stevens-Johnson syndromeตับอักเสบ",
         "-",
         "assets/images/drug_7.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard("8", "Sodium valproate/ Depakin®", "25 mg", "มือสั่น คลื่นไส้ อาเจียนปวดท้อง ผมร่วง น้ำหนักเพิ่ม", "ตับอักเสบ ตับอ่อนอักเสบ",
-        "-", "assets/images/drug_8.png", TimeStamp(false, false, false, false)),
+        "-", "assets/images/drug_8.png", TimeStamp("", "", "", "")),
     PillCard(
         "9",
         "Topiramate / Topamax®",
@@ -82,7 +82,7 @@ class PassportView extends StatelessWidget {
         "นิ่วในไต ต้อหิน เหงื่อออกน้อย ",
         "-",
         "assets/images/drug_9.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "10",
         "Vigabatrin / Sabril®",
@@ -91,7 +91,7 @@ class PassportView extends StatelessWidget {
         "ความผิดปกติของลานสายตา",
         "-",
         "assets/images/drug_10.png",
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "11",
         "Perampanel / Fycompa®",
@@ -100,7 +100,7 @@ class PassportView extends StatelessWidget {
         "หงุดหงิด ก้าวร้าว อาการทางจิต",
         "-",
         "assets/images/drug_11.png", //no img
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "12",
         "Lacosamide / Vimpat®",
@@ -109,7 +109,7 @@ class PassportView extends StatelessWidget {
         "Atrioventricular block, palpitation",
         "-",
         "assets/images/drug_12.png", //no img
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "13",
         "Pregabalin / Lyrica®",
@@ -118,7 +118,7 @@ class PassportView extends StatelessWidget {
         "มักไม่ค่อยพบ",
         "-",
         "assets/images/drug_13.png", //no img
-        TimeStamp(false, false, false, false)),
+        TimeStamp("", "", "", "")),
     PillCard(
         "14",
         "Gabapentin / Neurontin® / Berlontin®",
@@ -127,7 +127,7 @@ class PassportView extends StatelessWidget {
         "มักไม่ค่อยพบ",
         "-",
         "assets/images/drug_12.png", //no img
-        TimeStamp(false, false, false, false))
+        TimeStamp("", "", "", ""))
   ];
   @override
   Widget build(BuildContext context) {

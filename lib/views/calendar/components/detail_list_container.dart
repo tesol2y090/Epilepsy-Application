@@ -15,10 +15,13 @@ class DetailListContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(_date);
     final chuckCard = Hive.box('chuck_data');
+    if (chuckCard.get(formattedDate) == null) {
+      chuckCard.put(formattedDate, []);
+    }
     List<dynamic> data = chuckCard.get(formattedDate);
     return Container(
       child: Expanded(
-          child: data != null
+          child: data.length != 0
               ? ListView.builder(
                   padding: EdgeInsets.only(bottom: 36),
                   itemCount: data.length,

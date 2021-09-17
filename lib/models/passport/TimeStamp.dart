@@ -5,16 +5,16 @@ part 'TimeStamp.g.dart';
 @HiveType(typeId: 1)
 class TimeStamp extends HiveObject {
   @HiveField(0)
-  bool afterBreak;
+  String afterBreak;
 
   @HiveField(1)
-  bool afterLunch;
+  String afterLunch;
 
   @HiveField(2)
-  bool afterEven;
+  String afterEven;
 
   @HiveField(3)
-  bool beforeBed;
+  String beforeBed;
 
   TimeStamp(this.afterBreak, this.afterLunch, this.afterEven, this.beforeBed);
 }

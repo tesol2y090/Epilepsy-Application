@@ -21,7 +21,8 @@ class _ChuckFormState extends State<ChuckForm> {
   String _location;
 
   void addCalendarCard(ChuckCard newCard) {
-    String formattedDate = DateFormat('yyyy-MM-dd').format(widget._selectedDate);
+    String formattedDate =
+        DateFormat('yyyy-MM-dd').format(widget._selectedDate);
     final chuckBox = Hive.box('chuck_data');
     if (chuckBox.get(formattedDate) == null) {
       chuckBox.put(formattedDate, []);
@@ -39,8 +40,14 @@ class _ChuckFormState extends State<ChuckForm> {
     EpilepsyTypeItem(4, "อื่นๆ")
   ];
 
-  List<String> _dropdownHours = [for (int i = 1; i < 25; i++) i.toString()];
-  List<String> _dropdownMinutes = [for (int i = 1; i < 60; i++) i.toString()];
+  List<String> _dropdownHours = [
+    for (int i = 1; i < 25; i++)
+      i.toString().length < 2 ? "0" + i.toString() : i.toString()
+  ];
+  List<String> _dropdownMinutes = [
+    for (int i = 1; i < 60; i++)
+      i.toString().length < 2 ? "0" + i.toString() : i.toString()
+  ];
 
   List<DropdownMenuItem<EpilepsyTypeItem>> _dropdownMenuItems;
   List<DropdownMenuItem<String>> _dropdownHourItems;
@@ -139,22 +146,22 @@ class _ChuckFormState extends State<ChuckForm> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: DropdownButton<String>(
-                                    value: _selectedHour,
-                                    items: _dropdownHourItems,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _selectedHour = value;
-                                      });
-                                    }),
+                                value: _selectedHour,
+                                items: _dropdownHourItems,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedHour = value;
+                                  });
+                                }),
                           ),
-                                  DropdownButton<String>(
-                                  value: _selectedMinute,
-                                  items: _dropdownMinuteItems,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedMinute = value;
-                                    });
-                                  })
+                          DropdownButton<String>(
+                              value: _selectedMinute,
+                              items: _dropdownMinuteItems,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedMinute = value;
+                                });
+                              })
                         ],
                       ),
                       TextFormField(

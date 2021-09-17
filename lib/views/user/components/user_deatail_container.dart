@@ -22,7 +22,7 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
   static List<Widget> _widgetOptions = <Widget>[
     UserDetailData(),
     UserDetailChuck(),
-    // UserDetailPassport(),
+    UserDetailPassport(),
     UserDetailNoti()
   ];
 
@@ -32,9 +32,9 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
       margin: EdgeInsets.only(top: 12),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          Container(
+            height: 40, 
+            child: ListView(scrollDirection: Axis.horizontal, children: [
               GestureDetector(
                 onTap: () => {onItemTapped(0)},
                 child: Container(
@@ -65,23 +65,23 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
                   ),
                 ),
               ),
-              // GestureDetector(
-              //   onTap: () => {onItemTapped(2)},
-              //   child: Container(
-              //     padding: EdgeInsets.all(12),
-              //     margin: EdgeInsets.only(right: 16),
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(10.0),
-              //       color: selectedIndex == 2 ? Colors.grey[100] : null,
-              //     ),
-              //     child: Text(
-              //       "ไดอารี่การกินยา",
-              //       style: TextStyle(fontSize: 14, color: Colors.purple),
-              //     ),
-              //   ),
-              // ),
               GestureDetector(
                 onTap: () => {onItemTapped(2)},
+                child: Container(
+                  padding: EdgeInsets.all(12),
+                  margin: EdgeInsets.only(right: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: selectedIndex == 2 ? Colors.grey[100] : null,
+                  ),
+                  child: Text(
+                    "ไดอารี่การกินยา",
+                    style: TextStyle(fontSize: 14, color: Colors.purple),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => {onItemTapped(3)},
                 child: Container(
                   padding: EdgeInsets.all(12),
                   margin: EdgeInsets.only(right: 16),
@@ -95,7 +95,7 @@ class _UserDetailContainerState extends State<UserDetailContainer> {
                   ),
                 ),
               )
-            ],
+            ]),
           ),
           _widgetOptions.elementAt(selectedIndex)
         ],

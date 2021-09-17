@@ -75,17 +75,19 @@ class _PillContainerViewState extends State<PillContainerView> {
                   borderRadius: BorderRadius.circular(10.0),
                   color: Colors.white),
               margin: EdgeInsets.fromLTRB(0, 24, 0, 0),
-              child: Column(
-                children: [
-                  PillDetailContainer(
-                    widget._no,
-                      widget._name,
-                      widget._dose,
-                      widget._freq_side_effect,
-                      widget._danger_side_effect,
-                      widget._allergy,
-                      widget._image)
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    PillDetailContainer(
+                      widget._no,
+                        widget._name,
+                        widget._dose,
+                        widget._freq_side_effect,
+                        widget._danger_side_effect,
+                        widget._allergy,
+                        widget._image)
+                  ],
+                ),
               ),
             ),
           )

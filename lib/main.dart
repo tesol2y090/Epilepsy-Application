@@ -14,12 +14,14 @@ import 'package:epilepsy/views/about_us/about_us_view.dart';
 import 'package:epilepsy/models/calendar/ChuckCard.dart';
 import 'package:epilepsy/models/passport/TimeStamp.dart';
 import 'package:epilepsy/models/passport/PillCard.dart';
+import 'package:epilepsy/models/noti/notification_service.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ChuckCardAdapter());
@@ -43,11 +45,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String message;
-  String channelId = "1000";
-  String channelName = "FLUTTER_NOTIFICATION_CHANNEL";
-  String channelDescription = "FLUTTER_NOTIFICATION_CHANNEL_DETAIL";
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
