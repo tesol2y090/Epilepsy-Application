@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:epilepsy/views/infor/components/infor_detail_view.dart';
+import 'package:epilepsy/views/infor/components/what_is_epilepsy_card.dart';
+import 'package:epilepsy/views/infor/components/type_of_epilepsy_card.dart';
+import 'package:epilepsy/views/infor/components/cause_of_epileypsy_card.dart';
+import 'package:epilepsy/views/infor/components/rescure_epilepsy_card.dart';
 
 class InforCardView extends StatelessWidget {
   final String _header;
@@ -15,8 +19,16 @@ class InforCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (_) => InforDetailView(_header, _data))),
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => _header == "โรคลมชักคืออะไร?"
+                    ? WhatisCard()
+                    : _header == "ประเภทของอาการชัก"
+                        ? TypeOfEpilepsy()
+                        : _header == "สาเหตุของการชัก"
+                            ? CauseCard()
+                            : RescureCard())),
         child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),

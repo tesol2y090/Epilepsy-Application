@@ -3,7 +3,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart';
 import 'package:intl/intl.dart';
 
-const String applicationName = "สมุดบันทึกอาการชัก";
+const String applicationName = "Epilepsy Care (ไทย)";
 
 class NotificationService {
   static final NotificationService _notificationService =
