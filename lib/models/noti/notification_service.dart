@@ -48,25 +48,25 @@ class NotificationService {
         notiId = 111;
         title = "กินยาหลังอาหารเช้า";
         body = "ได้เวลากินยาหลังอาหารเช้า";
-        timeToNoti = TZDateTime.local(year, month, date, 2, 45);
+        timeToNoti = TZDateTime.local(year, month, date, 0, 30);
         break;
       case "afterLunch":
         notiId = 222;
         title = "กินยาหลังอาหารกลางวัน";
         body = "ได้เวลากินยาหลังอาหารกลางวัน";
-        timeToNoti = TZDateTime.local(year, month, date, 11, 30);
+        timeToNoti = TZDateTime.local(year, month, date, 4, 30);
         break;
       case "afterEven":
         notiId = 333;
         title = "กินยาหลังอาหารเย็น";
         body = "ได้เวลากินยาหลังอาหารเย็น";
-        timeToNoti = TZDateTime.local(year, month, date, 17, 30);
+        timeToNoti = TZDateTime.local(year, month, date, 10, 30);
         break;
       case "beforeBed":
         notiId = 444;
         title = "กินยาก่อนนอน";
         body = "ได้เวลากินยาก่อนนอน";
-        timeToNoti = TZDateTime.local(year, month, date, 21, 30);
+        timeToNoti = TZDateTime.local(year, month, date, 14, 30);
         break;
       default:
     }

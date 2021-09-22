@@ -11,13 +11,14 @@ class UserDetailChuck extends StatefulWidget {
 class _UserDetailChuckState extends State<UserDetailChuck> {
   List<String> _dropdownItems = [
     "7",
-    // "15",
-    // "30",
+    "15",
+    "30",
   ];
 
   List<DropdownMenuItem<String>> _dropdownMenuItems;
   String _selectedDate;
   List<BarChartGroupData> showData;
+  double _width = 400;
 
   void initState() {
     super.initState();
@@ -44,7 +45,7 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
     final chuckBox = Hive.box('chuck_data');
     if (chuckBox.length <= int.parse(_selectedDate)) {
       List<BarChartGroupData> tempData = [];
-      for (int i = chuckBox.length - 1; i >= 0; i--) {
+      for (int i = chuckBox.length; i >= 0; i--) {
         DateTime now = DateTime.now();
         DateTime newNow = now.subtract(Duration(days: chuckBox.length - i - 1));
         String formattedDate = DateFormat('dd').format(newNow);
@@ -63,8 +64,8 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
       });
     } else {
       List<BarChartGroupData> tempData = [];
-      for (int i = chuckBox.length - 1;
-          i > chuckBox.length - (int.parse(_selectedDate) - 1);
+      for (int i = chuckBox.length-1;
+          i >= chuckBox.length - (int.parse(_selectedDate));
           i--) {
         DateTime now = DateTime.now();
         DateTime newNow = now.subtract(Duration(days: chuckBox.length - i - 1));
@@ -96,16 +97,29 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
                 onChanged: (value) {
                   setState(() {
                     _selectedDate = value;
+                    switch (_selectedDate) {
+                      case "7":
+                        _width = 200;
+                        break;
+                      case "15":
+                        _width = 500;
+                        break;
+                      case "30":
+                        _width = 1000;
+                        break;
+                      default:
+                        _width = 400;
+                    }
                   });
                 })
           ])),
           Container(
-              height: 200,
-              child: Flex(
-                direction: Axis.vertical,
-                children: [
-                  Expanded(
-                      flex: 1,
+              height: 250,
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                      width: _width,
+                      padding: EdgeInsets.all(8),
                       child: showData.length == 0
                           ? Text("No data")
                           : BarChart(BarChartData(
@@ -126,9 +140,7 @@ class _UserDetailChuckState extends State<UserDetailChuck> {
                                 left: BorderSide(width: 1),
                                 bottom: BorderSide(width: 1),
                               )),
-                              barGroups: showData)))
-                ],
-              ))
+                              barGroups: showData)))))
         ],
       ),
     );

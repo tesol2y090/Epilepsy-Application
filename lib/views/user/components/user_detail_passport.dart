@@ -143,8 +143,8 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
 
   List<String> _dropdownDateItems = [
     "7",
-    // "15",
-    // "30",
+    "15",
+    "30",
   ];
 
   List<String> _dropdownPillItems = [
@@ -169,6 +169,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
   String _selectedDate;
   String _selectedPill;
   List<BarChartGroupData> showData;
+  double _width = 400;
 
   void initState() {
     super.initState();
@@ -210,7 +211,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
     final pillBox = Hive.box('pill_data');
     if (pillBox.length <= int.parse(_selectedDate)) {
       List<BarChartGroupData> tempData = [];
-      for (int i = 0; i < pillBox.length; i++) {
+      for (int i = pillBox.length; i >= 0; i--) {
         DateTime now = DateTime.now();
         DateTime newNow = now.subtract(Duration(days: pillBox.length - i - 1));
         String formattedDate = DateFormat('dd').format(newNow);
@@ -229,18 +230,19 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
           return data[0];
         }
 
-        // findPill(String _name) =>
-        //     data.firstWhere((data) => data["name"] == _name);
         var pill = findPill(_selectedPill);
         var count = 0;
         final timeStamp = pill.timeStamp;
         if (timeStamp.afterBreak != "") {
           count++;
-        } else if (timeStamp.afterLunch != "") {
+        }
+        if (timeStamp.afterLunch != "") {
           count++;
-        } else if (timeStamp.afterEven != "") {
+        }
+        if (timeStamp.afterEven != "") {
           count++;
-        } else if (timeStamp.beforeBed != "") {
+        }
+        if (timeStamp.beforeBed != "") {
           count++;
         }
         tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
@@ -254,7 +256,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
     } else {
       List<BarChartGroupData> tempData = [];
       for (int i = pillBox.length - 1;
-          i > pillBox.length - (int.parse(_selectedDate) - 1);
+          i >= pillBox.length - (int.parse(_selectedDate));
           i--) {
         DateTime now = DateTime.now();
         DateTime newNow = now.subtract(Duration(days: pillBox.length - i - 1));
@@ -278,11 +280,14 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
         final timeStamp = pill.timeStamp;
         if (timeStamp.afterBreak != "") {
           count++;
-        } else if (timeStamp.afterLunch != "") {
+        }
+        if (timeStamp.afterLunch != "") {
           count++;
-        } else if (timeStamp.afterEven != "") {
+        }
+        if (timeStamp.afterEven != "") {
           count++;
-        } else if (timeStamp.beforeBed != "") {
+        }
+        if (timeStamp.beforeBed != "") {
           count++;
         }
         tempData.add(BarChartGroupData(x: int.parse(formattedDate), barRods: [
@@ -319,16 +324,29 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
                     onChanged: (value) {
                       setState(() {
                         _selectedDate = value;
+                        switch (_selectedDate) {
+                          case "7":
+                            _width = 200;
+                            break;
+                          case "15":
+                            _width = 500;
+                            break;
+                          case "30":
+                            _width = 1000;
+                            break;
+                          default:
+                            _width = 400;
+                        }
                       });
                     })
               ])),
           Container(
-              height: 200,
-              child: Flex(
-                direction: Axis.vertical,
-                children: [
-                  Expanded(
-                      flex: 1,
+              height: 250,
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                      width: _width,
+                      padding: EdgeInsets.all(8),
                       child: showData.length == 0
                           ? Text("No data")
                           : BarChart(BarChartData(
@@ -349,9 +367,7 @@ class _UserDetailPassportState extends State<UserDetailPassport> {
                                 left: BorderSide(width: 1),
                                 bottom: BorderSide(width: 1),
                               )),
-                              barGroups: showData)))
-                ],
-              ))
+                              barGroups: showData)))))
         ],
       ),
     );
