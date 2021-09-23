@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:epilepsy/views/calendar/components/add_calendar.dart';
 import 'package:epilepsy/views/calendar/components/detail_card.dart';
+import 'package:epilepsy/views/calendar/components/edit_calendar.dart';
 
 class DetailListContainer extends StatefulWidget {
   final DateTime _date;
@@ -41,8 +42,27 @@ class _DetailListContainerState extends State<DetailListContainer> {
                   itemBuilder: (context, index) {
                     final card = data[index];
                     return Column(children: [
-                      DetailCard(card.type, card.epilepsyType, card.chuckTime,
-                          card.detail, card.location, card.timestamp),
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => EditCalendar(
+                                    card.type,
+                                    card.epilepsyType,
+                                    card.chuckTime,
+                                    card.detail,
+                                    card.location,
+                                    card.timestamp,
+                                    widget._date,
+                                    increment))),
+                        child: DetailCard(
+                            card.type,
+                            card.epilepsyType,
+                            card.chuckTime,
+                            card.detail,
+                            card.location,
+                            card.timestamp),
+                      ),
                       data.length - 1 == index
                           ? FloatingActionButton(
                               backgroundColor: Colors.purple,
