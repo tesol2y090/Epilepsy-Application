@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'assets/images/epilepsy-logo.jpg',
+                'assets/images/epilepsy-logo.png',
                   width: 320, height: 140
               ),
             ],
