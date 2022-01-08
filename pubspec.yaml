@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   image_picker: ^0.6.7+22
   flutter_local_notifications: ^4.0.1+2
+  rxdart: ^0.27.3
   # flutter_local_notifications: ^1.4.4+4
   # flutter_local_notifications: ^8.2.0
 

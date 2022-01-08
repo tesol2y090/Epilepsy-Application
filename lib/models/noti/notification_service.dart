@@ -2,8 +2,25 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart';
 import 'package:intl/intl.dart';
+import 'package:rxdart/subjects.dart';
 
 const String applicationName = "Epilepsy Care (ไทย)";
+
+final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
+    BehaviorSubject<ReceivedNotification>();
+class ReceivedNotification {
+  ReceivedNotification({
+    this.id,
+     this.title,
+     this.body,
+     this.payload,
+  });
+
+  final int id;
+  final String title;
+  final String body;
+  final String payload;
+}
 
 class NotificationService {
   static final NotificationService _notificationService =
@@ -23,10 +40,30 @@ class NotificationService {
   Future<void> init() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
+        final IOSInitializationSettings initializationSettingsIOS =
+      IOSInitializationSettings(
+          requestAlertPermission: false,
+          requestBadgePermission: false,
+          requestSoundPermission: false,
+          onDidReceiveLocalNotification: (
+            int id,
+            String title,
+            String body,
+            String payload,
+          ) async {
+            didReceiveLocalNotificationSubject.add(
+              ReceivedNotification(
+                id: id,
+                title: title,
+                body: body,
+                payload: payload,
+              ),
+            );
+          });
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid, iOS: null, macOS: null);
+            android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: null);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
     tz.initializeTimeZones();
